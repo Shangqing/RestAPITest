@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<SessionTemplate version="4.3.0.71069">
+    <baseApplication>com.fnfr.svt.applications.web</baseApplication>
+    <sessionProperties type="com.fnfr.svt.applications.web.documents.WebSessionProperties">
+        <baseUrl inherit="false">http://10.10.4.16/#library/search</baseUrl>
+        <capturePageLoadProperties>
+            <capturePageLoads inherit="false" defaultValue=""/>
+        </capturePageLoadProperties>
+        <stepProperties>
+            <stepCredentialProperties>
+                <stepUsername inherit="false">shangqing.liu@spirent.com</stepUsername>
+                <stepPassword inherit="false">AiRWju4XCF68/xt4CGWUjg==</stepPassword>
+            </stepCredentialProperties>
+        </stepProperties>
+    </sessionProperties>
+</SessionTemplate>

@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<SessionTemplate version="4.3.0.71069">
+    <baseApplication>com.fnfr.itest.applications.webservices.restful</baseApplication>
+    <sessionProperties type="com.fnfr.svt.adapter.automation.tools.common.documents.TransferableDocumentObject" transferableToolId="com.fnfr.itest.applications.webservices.restful" transferableType="com.fnfr.itest.applications.webservices.properties.restful.RESTfulSessionProperties" url="http://10.10.4.16" url.inherit="false" acceptAllCookies="true" acceptAllCookies.inherit="false">
+        <authentication transferableToolId="com.fnfr.itest.applications.webservices.restful" transferableType="com.fnfr.itest.applications.webservices.properties.AuthenticationProperties" user="shangqing.liu@spirent.com" user.inherit="false" password.masked="true" password="AiRWju4XCF68/xt4CGWUjg==" password.inherit="false"/>
+    </sessionProperties>
+</SessionTemplate>

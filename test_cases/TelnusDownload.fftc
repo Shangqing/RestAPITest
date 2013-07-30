@@ -1,0 +1,71 @@
+<?xml version="1.0"?>
+<testCase version="4.3.0.71069">
+    <procedures>
+        <item name="main">
+            <steps>
+                <item guid="c8d8e37c-2f45-4cf2-8ddf-35f039e0a946" action="open" session="t1">
+                    <command>
+                        <body>project://RestAPITest/session_profiles/new_session_profile.ffsp</body>
+                    </command>
+                    <applicationProperties type="com.fnfr.svt.documents.OpenStepPropertyGroup">
+                        <stepProperties type="com.fnfr.svt.applications.web.documents.stepproperties.StepProperties"/>
+                        <sessionProperties type="com.fnfr.svt.applications.web.documents.WebSessionProperties"/>
+                        <sessionClass type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                    </applicationProperties>
+                </item>
+                <item guid="4b28a274-2aad-4a18-ad84-4285813a88c0" action="setText" session="t1" target="id=user_username" normalOffset="8.28">
+                    <command>
+                        <body>sli</body>
+                    </command>
+                    <applicationProperties type="com.fnfr.svt.applications.web.documents.stepproperties.StepProperties"/>
+                </item>
+                <item guid="0a903222-7cf7-4331-af7b-d9d8393e242f" action="setText" session="t1" target="id=user_subscriber_number" normalOffset="7.03">
+                    <command>
+                        <body>2219-0000</body>
+                    </command>
+                    <applicationProperties type="com.fnfr.svt.applications.web.documents.stepproperties.StepProperties"/>
+                </item>
+                <item guid="1334a401-d0f6-4842-aa59-5640baafde21" action="setText" session="t1" target="id=user_password" normalOffset="4.811">
+                    <command>
+                        <body masked="true">2IKV4PknqUgJor6ZZIWzzg==</body>
+                    </command>
+                    <applicationProperties type="com.fnfr.svt.applications.web.documents.stepproperties.StepProperties"/>
+                </item>
+                <item guid="a895dbb1-fdfe-4d3e-b04b-ca7fee3d579f" action="click" session="t1" target="name=commit" normalOffset="0.093" estimatedStepExecutionTime="8.843">
+                    <applicationProperties type="com.fnfr.svt.applications.web.documents.stepproperties.ClickStepProperties"/>
+                </item>
+                <item guid="acfa473c-c887-44a8-bdf1-ab6b57358af1" action="click" session="t1" target="//INPUT[@value=&apos;Search&apos;]" normalOffset="18.653" estimatedStepExecutionTime="4.016">
+                    <applicationProperties type="com.fnfr.svt.applications.web.documents.stepproperties.ClickStepProperties"/>
+                </item>
+                <item guid="fe8beaa6-bfef-4855-97ca-dfe0845255bd" action="click" session="t1" target="id=expand" normalOffset="1.89">
+                    <applicationProperties type="com.fnfr.svt.applications.web.documents.stepproperties.ClickStepProperties"/>
+                </item>
+                <item guid="c60bf6cd-dc3e-4eed-adaa-425910db4cd8" action="select" session="t1" target="name=fr" normalOffset="5.031">
+                    <command>
+                        <body>label=Vulnerability Toolkits</body>
+                    </command>
+                    <applicationProperties type="com.fnfr.svt.applications.web.documents.stepproperties.StepProperties"/>
+                </item>
+                <item guid="c4e5ceee-10c5-4500-b332-4d263fda31c9" action="click" session="t1" target="//INPUT[@value=&apos;Search&apos;]" normalOffset="0.671" estimatedStepExecutionTime="3.421">
+                    <applicationProperties type="com.fnfr.svt.applications.web.documents.stepproperties.ClickStepProperties"/>
+                </item>
+                <item guid="e09bbcc8-9dbd-47bb-9e8a-baf7187ad0fd" action="click" session="t1" target="link=resources" normalOffset="3.359">
+                    <applicationProperties type="com.fnfr.svt.applications.web.documents.stepproperties.ClickStepProperties"/>
+                </item>
+                <item guid="1d7b2404-9ac2-4e66-b422-da086c5306fa" action="setFilePath" session="t1" normalOffset="10.967">
+                    <command>
+                        <body>C:\\Documents and Settings\\sqliu\\My Documents\\TSL20130715-02 Vulnerability Report (Squid HTTP Host Header Port Handling Denial of Service).xml</body>
+                    </command>
+                    <applicationProperties type="com.fnfr.svt.applications.web.documents.stepproperties.StepProperties"/>
+                    <useFieldsInCommand>false</useFieldsInCommand>
+                </item>
+                <item guid="11db04be-57cb-4fe1-a36d-e2594d72d262" action="click" session="t1" target="link=Download" normalOffset="10.281" estimatedStepExecutionTime="2.468">
+                    <applicationProperties type="com.fnfr.svt.applications.web.documents.stepproperties.ClickStepProperties"/>
+                </item>
+                <item guid="ff0dc971-fe3e-4b15-a5fe-a5b28f33e0f1" action="close" session="t1" normalOffset="21.123">
+                    <applicationProperties type="com.fnfr.svt.applications.web.documents.stepproperties.StepProperties"/>
+                </item>
+            </steps>
+        </item>
+    </procedures>
+</testCase>

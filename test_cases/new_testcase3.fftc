@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<testCase version="4.3.0.71069">
+    <procedures>
+        <item name="main">
+            <steps>
+                <item guid="33efefa1-9736-46b5-a13e-c320723ecec2" action="open" session="t1">
+                    <command>
+                        <body>project://RestAPITest/session_profiles/Web_studio.ffsp</body>
+                    </command>
+                    <applicationProperties type="com.fnfr.svt.documents.OpenStepPropertyGroup">
+                        <stepProperties type="com.fnfr.svt.applications.web.documents.stepproperties.StepProperties"/>
+                        <sessionProperties type="com.fnfr.svt.applications.web.documents.WebSessionProperties"/>
+                        <sessionClass type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                    </applicationProperties>
+                </item>
+                <item guid="4a888ff0-82b4-4734-b9f4-a3aef6ee8d75" action="close" session="t1" normalOffset="1.094">
+                    <applicationProperties type="com.fnfr.svt.applications.web.documents.stepproperties.StepProperties"/>
+                </item>
+            </steps>
+        </item>
+    </procedures>
+</testCase>

@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<testCase version="4.3.0.71069">
+    <procedures>
+        <item name="main">
+            <steps>
+                <item guid="71005d27-bb5e-4cec-a418-a2e991fc85aa" action="open" session="t1">
+                    <command>
+                        <body>project://RestAPITest/session_profiles/Web_studio.ffsp</body>
+                    </command>
+                    <applicationProperties type="com.fnfr.svt.documents.OpenStepPropertyGroup">
+                        <stepProperties type="com.fnfr.svt.applications.web.documents.stepproperties.StepProperties"/>
+                        <sessionProperties type="com.fnfr.svt.applications.web.documents.WebSessionProperties"/>
+                        <sessionClass type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                    </applicationProperties>
+                </item>
+                <item guid="6920173e-0303-429d-90f3-59261fdcebe3" action="setText" session="t1" target="id=user_email" skip="true" normalOffset="8.499">
+                    <command>
+                        <body>shangqing.liu@spirent.com</body>
+                    </command>
+                    <applicationProperties type="com.fnfr.svt.applications.web.documents.stepproperties.StepProperties"/>
+                </item>
+                <item guid="2ef182ee-790a-41db-8c78-85ff1ce19194" action="setText" session="t1" target="id=user_password" skip="true" normalOffset="4.795">
+                    <command>
+                        <body masked="true">AiRWju4XCF68/xt4CGWUjg==</body>
+                    </command>
+                    <applicationProperties type="com.fnfr.svt.applications.web.documents.stepproperties.StepProperties"/>
+                </item>
+                <item guid="e5d61f12-9550-47ea-8ff7-9252467c5f70" action="click" session="t1" target="id=user_remember_me" skip="true" normalOffset="0.109">
+                    <applicationProperties type="com.fnfr.svt.applications.web.documents.stepproperties.ClickStepProperties"/>
+                </item>
+                <item guid="9e987c13-be6f-4884-a1b3-ba8c64d02afc" action="click" session="t1" target="id=login_btn" skip="true" normalOffset="3.17" estimatedStepExecutionTime="5.531">
+                    <applicationProperties type="com.fnfr.svt.applications.web.documents.stepproperties.ClickStepProperties"/>
+                </item>
+                <item guid="3db901a8-bb97-4fce-845d-bd5b23073972" action="click" session="t1" target="link=Library" normalOffset="2.484">
+                    <applicationProperties type="com.fnfr.svt.applications.web.documents.stepproperties.ClickStepProperties"/>
+                </item>
+                <item guid="e25dff7e-36f1-4c9f-a391-0a5409b27933" action="setFilePath" session="t1" normalOffset="12.576">
+                    <command>
+                        <body>C:\\Documents and Settings\\sqliu\\My Documents\\scenario\\02.2012.06.p2p.bittorrent.bittorrent_com.bittorrent.download_torrent_file-02.msl</body>
+                    </command>
+                    <applicationProperties type="com.fnfr.svt.applications.web.documents.stepproperties.StepProperties"/>
+                    <useFieldsInCommand>false</useFieldsInCommand>
+                </item>
+                <item guid="b3685435-89f8-4f4a-8743-818578027033" action="go" session="t1" normalOffset="23.309" estimatedStepExecutionTime="1.39">
+                    <command>
+                        <body>http://10.10.4.16/scenarios/msl?id=02.2012.06.p2p.bittorrent.bittorrent_com.bittorrent.download_torrent_file-02</body>
+                    </command>
+                    <applicationProperties type="com.fnfr.svt.applications.web.documents.stepproperties.StepProperties"/>
+                </item>
+                <item guid="1514223b-9fc9-4af5-91aa-d63ee457444b" action="close" session="t1" normalOffset="22.638">
+                    <applicationProperties type="com.fnfr.svt.applications.web.documents.stepproperties.StepProperties"/>
+                </item>
+            </steps>
+        </item>
+    </procedures>
+</testCase>

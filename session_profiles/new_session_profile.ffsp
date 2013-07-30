@@ -1,0 +1,5 @@
+<?xml version="1.0"?>
+<SessionTemplate version="4.3.0.71069">
+    <baseApplication>com.fnfr.svt.applications.web</baseApplication>
+    <sessionProperties type="com.fnfr.svt.applications.web.documents.WebSessionProperties"/>
+</SessionTemplate>

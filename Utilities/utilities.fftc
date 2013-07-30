@@ -1,0 +1,856 @@
+<?xml version="1.0"?>
+<testCase version="4.3.0.71069" entryPoint="GetSystemAbout">
+    <general>
+        <isProcedureLibrary>true</isProcedureLibrary>
+        <sessionClass includeTestCase="true" sessionType="project://RestAPITest/session_profiles/Rest_AVNext.ffsp"/>
+    </general>
+    <procedures>
+        <item name="login" isPublic="true">
+            <steps>
+                <item guid="debf0a62-fc7d-4489-b270-cfea718d1c7b" action="POST" session="$session">
+                    <postProcessing>
+                        <analysisRules>
+                            <item>
+                                <extractorInfo extractorType="query">
+                                    <extractorProperties type="com.fnfr.svt.mapping.execution.extractors.QueryDataExtractorPropertyGroup">
+                                        <query>substring-before(responseHTTPHeaders/Set_Cookie,&quot;;&quot;)</query>
+                                    </extractorProperties>
+                                </extractorInfo>
+                                <processorInfo ruleType="store">
+                                    <ruleProperties type="com.fnfr.svt.execution.builtin.processors.StoreProcessorPropertyGroup">
+                                        <storageLocation>sessionStr</storageLocation>
+                                        <isStorageLocationGlobal>true</isStorageLocationGlobal>
+                                    </ruleProperties>
+                                </processorInfo>
+                            </item>
+                        </analysisRules>
+                        <storeResponseAt>loginInfo</storeResponseAt>
+                    </postProcessing>
+                    <applicationProperties type="com.fnfr.svt.adapter.automation.tools.common.documents.TransferableDocumentObject" transferableToolId="com.fnfr.itest.applications.webservices.restful" transferableType="com.fnfr.itest.applications.webservices.properties.restful.RESTfulInvokeProperties" message="[param loginUserPost]" message.inherit="false" action="/login" action.inherit="false" includeHttpHeaders.inherit="false">
+                        <httpHeader inherit="false" transferableToolId="com.fnfr.itest.applications.webservices.restful">
+                            <memberClasses>
+                                <item>com.fnfr.itest.applications.webservices.properties.HTTPHeaderEntry</item>
+                            </memberClasses>
+                            <item transferableToolId="com.fnfr.itest.applications.webservices.restful" transferableType="com.fnfr.itest.applications.webservices.properties.HTTPHeaderEntry" header="Content_Type" header.inherit="false" value="application/x-www-form-urlencoded; charset=UTF-8" value.inherit="false"/>
+                        </httpHeader>
+                    </applicationProperties>
+                </item>
+                <item guid="888dadd6-14e7-4f38-8e08-1373aad1d21f" action="write">
+                    <command>
+                        <body>[response loginInfo]</body>
+                    </command>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                </item>
+            </steps>
+        </item>
+        <item name="GetUsers" isPublic="true">
+            <steps>
+                <item guid="2e3f33d7-4f26-4b7c-ae4a-5fa36c360670" action="GET" session="$session">
+                    <command>
+                        <body>/users</body>
+                    </command>
+                    <postProcessing>
+                        <storeResponseAt>usersInfo</storeResponseAt>
+                    </postProcessing>
+                    <applicationProperties type="com.fnfr.svt.adapter.automation.tools.common.documents.TransferableDocumentObject" transferableToolId="com.fnfr.itest.applications.webservices.restful" transferableType="com.fnfr.itest.applications.webservices.properties.restful.RESTfulInvokeProperties" action="/users" action.inherit="false">
+                        <httpHeader inherit="false" transferableToolId="com.fnfr.itest.applications.webservices.restful">
+                            <memberClasses>
+                                <item>com.fnfr.itest.applications.webservices.properties.HTTPHeaderEntry</item>
+                            </memberClasses>
+                            <item transferableToolId="com.fnfr.itest.applications.webservices.restful" transferableType="com.fnfr.itest.applications.webservices.properties.HTTPHeaderEntry" header="Cookie" header.inherit="false" value="[gget sessionStr]; [param loginUserInfo]" value.inherit="false"/>
+                        </httpHeader>
+                    </applicationProperties>
+                </item>
+                <item guid="7d89123f-1a47-4257-8fe0-841c209e288a" action="write">
+                    <command>
+                        <body>[response usersInfo]</body>
+                    </command>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                </item>
+            </steps>
+        </item>
+        <item name="GetUser" isPublic="true">
+            <steps>
+                <item guid="12df4903-31a0-44d3-aaa8-fa250be16751" action="GetUsers" session="$session">
+                    <postProcessing>
+                        <analysisRules>
+                            <item>
+                                <extractorInfo extractorType="query">
+                                    <extractorProperties type="com.fnfr.svt.mapping.execution.extractors.QueryDataExtractorPropertyGroup">
+                                        <query sub="true">mapped/Json/item\\[./email =&quot;$email&quot;\\]/id</query>
+                                    </extractorProperties>
+                                </extractorInfo>
+                                <processorInfo ruleType="store">
+                                    <ruleProperties type="com.fnfr.svt.execution.builtin.processors.StoreProcessorPropertyGroup">
+                                        <storageLocation>userId</storageLocation>
+                                    </ruleProperties>
+                                </processorInfo>
+                            </item>
+                        </analysisRules>
+                    </postProcessing>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                    <useFieldsInCommand>false</useFieldsInCommand>
+                </item>
+                <item guid="9c680f06-ca3a-4095-9f5c-310a44b12590" action="GET" session="$session">
+                    <command>
+                        <body>/users</body>
+                    </command>
+                    <postProcessing>
+                        <storeResponseAt>userInfo</storeResponseAt>
+                    </postProcessing>
+                    <applicationProperties type="com.fnfr.svt.adapter.automation.tools.common.documents.TransferableDocumentObject" transferableToolId="com.fnfr.itest.applications.webservices.restful" transferableType="com.fnfr.itest.applications.webservices.properties.restful.RESTfulInvokeProperties" action="/users/$userId" action.inherit="false">
+                        <httpHeader inherit="false" transferableToolId="com.fnfr.itest.applications.webservices.restful">
+                            <memberClasses>
+                                <item>com.fnfr.itest.applications.webservices.properties.HTTPHeaderEntry</item>
+                            </memberClasses>
+                            <item transferableToolId="com.fnfr.itest.applications.webservices.restful" transferableType="com.fnfr.itest.applications.webservices.properties.HTTPHeaderEntry" header="Cookie" header.inherit="false" value="[gget sessionStr]; [param loginUserInfo]" value.inherit="false"/>
+                        </httpHeader>
+                    </applicationProperties>
+                </item>
+                <item guid="381f2cea-6521-451a-a39c-b862d0c7008d" action="write">
+                    <command>
+                        <body>[response userInfo]</body>
+                    </command>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                </item>
+            </steps>
+            <arguments>
+                <item name="email">
+                    <isMandatory>true</isMandatory>
+                </item>
+            </arguments>
+        </item>
+        <item name="GetLicenses" isPublic="true">
+            <steps>
+                <item guid="c42a8480-71dc-4e7f-a3a7-f251862aeb3a" action="GET" session="$session">
+                    <command>
+                        <body>/users</body>
+                    </command>
+                    <postProcessing>
+                        <storeResponseAt>licensesInfo</storeResponseAt>
+                    </postProcessing>
+                    <applicationProperties type="com.fnfr.svt.adapter.automation.tools.common.documents.TransferableDocumentObject" transferableToolId="com.fnfr.itest.applications.webservices.restful" transferableType="com.fnfr.itest.applications.webservices.properties.restful.RESTfulInvokeProperties" action="/licenses" action.inherit="false"/>
+                </item>
+                <item guid="92af35ab-3894-4f5c-97f7-721b5c676e58" action="write">
+                    <command>
+                        <body>[response licensesInfo]</body>
+                    </command>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                </item>
+            </steps>
+        </item>
+        <item name="xGetSystemAbout" isPublic="true">
+            <steps>
+                <item guid="3ff2a1be-7915-411e-8ce2-92424fffd3e3" action="GET" session="$session">
+                    <command>
+                        <body>/system/about</body>
+                    </command>
+                    <postProcessing>
+                        <storeResponseAt>systemAboutInfo</storeResponseAt>
+                    </postProcessing>
+                    <applicationProperties type="com.fnfr.svt.adapter.automation.tools.common.documents.TransferableDocumentObject" transferableToolId="com.fnfr.itest.applications.webservices.restful" transferableType="com.fnfr.itest.applications.webservices.properties.restful.RESTfulInvokeProperties" action="/system/about" action.inherit="false"/>
+                </item>
+                <item guid="ba4e4cc0-58e9-43eb-a814-a6d759e69822" action="write">
+                    <command>
+                        <body>[response systemAboutInfo]</body>
+                    </command>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                </item>
+            </steps>
+        </item>
+        <item name="GetSystemLiveSupport" isPublic="true">
+            <steps>
+                <item guid="b1f469bc-5b1b-4cc0-8bee-f494ace2c6da" action="GET" session="$session">
+                    <postProcessing>
+                        <storeResponseAt>liveSupportInfo</storeResponseAt>
+                    </postProcessing>
+                    <applicationProperties type="com.fnfr.svt.adapter.automation.tools.common.documents.TransferableDocumentObject" transferableToolId="com.fnfr.itest.applications.webservices.restful" transferableType="com.fnfr.itest.applications.webservices.properties.restful.RESTfulInvokeProperties" action="/system/livesupport" action.inherit="false"/>
+                </item>
+                <item guid="92682e86-e0f8-4121-9c2b-edd77894eca4" action="write">
+                    <command>
+                        <body>[response liveSupportInfo]</body>
+                    </command>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                </item>
+            </steps>
+        </item>
+        <item name="xSystemLiveSupportCommand" isPublic="true">
+            <steps>
+                <item guid="430e0dde-f04c-41b5-8f44-6c7ca92112c1" action="POST" session="$session">
+                    <applicationProperties type="com.fnfr.svt.adapter.automation.tools.common.documents.TransferableDocumentObject" transferableToolId="com.fnfr.itest.applications.webservices.restful" transferableType="com.fnfr.itest.applications.webservices.properties.restful.RESTfulInvokeProperties" action="/system/livesupport?command=$cmd" action.inherit="false"/>
+                </item>
+            </steps>
+            <arguments>
+                <item name="cmd">
+                    <description>stop or start</description>
+                    <isMandatory>true</isMandatory>
+                </item>
+            </arguments>
+        </item>
+        <item name="GetSystemVersions" isPublic="true">
+            <steps>
+                <item guid="417c4bcf-239b-40c1-bade-647400134039" action="GET" session="$session">
+                    <postProcessing>
+                        <storeResponseAt>versionsInfo</storeResponseAt>
+                    </postProcessing>
+                    <applicationProperties type="com.fnfr.svt.adapter.automation.tools.common.documents.TransferableDocumentObject" transferableToolId="com.fnfr.itest.applications.webservices.restful" transferableType="com.fnfr.itest.applications.webservices.properties.restful.RESTfulInvokeProperties" action="/system/versions" action.inherit="false"/>
+                </item>
+                <item guid="559c9500-c9d9-4acb-8ea3-34a7da1cf04b" action="write">
+                    <command>
+                        <body>[response versionsInfo]</body>
+                    </command>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                </item>
+            </steps>
+        </item>
+        <item name="xGetSystemUpdate" isPublic="true">
+            <steps>
+                <item guid="ad2df790-a983-4d13-a54e-8d19625ad044" action="GET" session="$session">
+                    <postProcessing>
+                        <storeResponseAt>updateInfo</storeResponseAt>
+                    </postProcessing>
+                    <applicationProperties type="com.fnfr.svt.adapter.automation.tools.common.documents.TransferableDocumentObject" transferableToolId="com.fnfr.itest.applications.webservices.restful" transferableType="com.fnfr.itest.applications.webservices.properties.restful.RESTfulInvokeProperties" action="/system/update" action.inherit="false"/>
+                </item>
+                <item guid="59653217-c742-4046-9e4f-e95ca6318a23" action="write">
+                    <command>
+                        <body>[response updateInfo]</body>
+                    </command>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                </item>
+            </steps>
+        </item>
+        <item name="GetSystemGemStatus" isPublic="true">
+            <steps>
+                <item guid="0e5dfe0c-56de-46cb-ac58-50f63d1fde9c" action="GET" session="$session">
+                    <postProcessing>
+                        <storeResponseAt>gemStatusInfo</storeResponseAt>
+                    </postProcessing>
+                    <applicationProperties type="com.fnfr.svt.adapter.automation.tools.common.documents.TransferableDocumentObject" transferableToolId="com.fnfr.itest.applications.webservices.restful" transferableType="com.fnfr.itest.applications.webservices.properties.restful.RESTfulInvokeProperties" action="/system/gem_status" action.inherit="false"/>
+                </item>
+                <item guid="ee05fb5e-5d3c-4f97-99d3-556d6e6c341f" action="write">
+                    <command>
+                        <body>[response gemStatusInfo]</body>
+                    </command>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                </item>
+            </steps>
+        </item>
+        <item name="GetAppliances" isPublic="true">
+            <steps>
+                <item guid="a3c4e849-263e-4ede-8e17-56bda2762329" action="GET" session="$session">
+                    <postProcessing>
+                        <storeResponseAt>appliancesInfo</storeResponseAt>
+                    </postProcessing>
+                    <applicationProperties type="com.fnfr.svt.adapter.automation.tools.common.documents.TransferableDocumentObject" transferableToolId="com.fnfr.itest.applications.webservices.restful" transferableType="com.fnfr.itest.applications.webservices.properties.restful.RESTfulInvokeProperties" action="/appliances" action.inherit="false"/>
+                </item>
+                <item guid="99f8264f-287d-4516-87b7-41f332ce621f" action="write">
+                    <command>
+                        <body>[response appliancesInfo]</body>
+                    </command>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                </item>
+            </steps>
+        </item>
+        <item name="tGetAppliance" isPublic="true">
+            <steps>
+                <item guid="1350336a-7f02-4252-a31b-e09c5553b045" action="GET" session="$session">
+                    <postProcessing>
+                        <storeResponseAt>appliancesInfo</storeResponseAt>
+                    </postProcessing>
+                    <applicationProperties type="com.fnfr.svt.adapter.automation.tools.common.documents.TransferableDocumentObject" transferableToolId="com.fnfr.itest.applications.webservices.restful" transferableType="com.fnfr.itest.applications.webservices.properties.restful.RESTfulInvokeProperties" action="/appliances" action.inherit="false"/>
+                </item>
+                <item guid="29dc1480-ad1f-475b-8bb6-243371be9c0c" action="write">
+                    <command>
+                        <body>[response appliancesInfo]</body>
+                    </command>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                </item>
+            </steps>
+        </item>
+        <item name="tDeleteAppliance" isPublic="true">
+            <steps>
+                <item guid="47fd3cec-87cd-4620-8705-31ae407f245d" action="GET" session="$session">
+                    <postProcessing>
+                        <storeResponseAt>appliancesInfo</storeResponseAt>
+                    </postProcessing>
+                    <applicationProperties type="com.fnfr.svt.adapter.automation.tools.common.documents.TransferableDocumentObject" transferableToolId="com.fnfr.itest.applications.webservices.restful" transferableType="com.fnfr.itest.applications.webservices.properties.restful.RESTfulInvokeProperties" action="/appliances" action.inherit="false"/>
+                </item>
+                <item guid="b8b34f2b-1e9d-4220-8ec3-bc47264ab4a6" action="write">
+                    <command>
+                        <body>[response appliancesInfo]</body>
+                    </command>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                </item>
+            </steps>
+        </item>
+        <item name="GetAppliancesShortList" isPublic="true">
+            <steps>
+                <item guid="ae384ed3-480e-4d5a-bca1-4640b045f6e5" action="GET" session="$session">
+                    <postProcessing>
+                        <storeResponseAt>appliancesShortListInfo</storeResponseAt>
+                    </postProcessing>
+                    <applicationProperties type="com.fnfr.svt.adapter.automation.tools.common.documents.TransferableDocumentObject" transferableToolId="com.fnfr.itest.applications.webservices.restful" transferableType="com.fnfr.itest.applications.webservices.properties.restful.RESTfulInvokeProperties" action="/appliances/short_list" action.inherit="false"/>
+                </item>
+                <item guid="9b44ccbe-56e0-4b61-89d2-c28345418c2e" action="write">
+                    <command>
+                        <body>[response appliancesShortListInfo]</body>
+                    </command>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                </item>
+            </steps>
+        </item>
+        <item name="GetAppliancesAllQueues" isPublic="true">
+            <steps>
+                <item guid="4d5b1df2-8166-47d0-80d9-60be50bb6373" action="GET" session="$session">
+                    <postProcessing>
+                        <storeResponseAt>appliancesAllQueuesInfo</storeResponseAt>
+                    </postProcessing>
+                    <applicationProperties type="com.fnfr.svt.adapter.automation.tools.common.documents.TransferableDocumentObject" transferableToolId="com.fnfr.itest.applications.webservices.restful" transferableType="com.fnfr.itest.applications.webservices.properties.restful.RESTfulInvokeProperties" action="/appliances/all_queues" action.inherit="false"/>
+                </item>
+                <item guid="99ae8185-2b70-419a-899f-7cfdff32533e" action="write">
+                    <command>
+                        <body>[response appliancesAllQueuesInfo]</body>
+                    </command>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                </item>
+            </steps>
+        </item>
+        <item name="tGetApplianceQueues" isPublic="true">
+            <steps>
+                <item guid="34bec524-8f12-4309-b472-d1299f188e7e" action="GET" session="$session">
+                    <postProcessing>
+                        <storeResponseAt>appliancesAllQueuesInfo</storeResponseAt>
+                    </postProcessing>
+                    <applicationProperties type="com.fnfr.svt.adapter.automation.tools.common.documents.TransferableDocumentObject" transferableToolId="com.fnfr.itest.applications.webservices.restful" transferableType="com.fnfr.itest.applications.webservices.properties.restful.RESTfulInvokeProperties" action="/appliances/all_queues" action.inherit="false"/>
+                </item>
+                <item guid="33d017b0-52fb-4890-8b1a-ba26fcb8158b" action="write">
+                    <command>
+                        <body>[response appliancesAllQueuesInfo]</body>
+                    </command>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                </item>
+            </steps>
+        </item>
+        <item name="GetAppliancesAllNetworks" isPublic="true">
+            <steps>
+                <item guid="043a5fd1-45d9-4aa5-ab76-b507c74cbab9" action="GET" session="$session">
+                    <postProcessing>
+                        <storeResponseAt>appliancesAllNetworksInfo</storeResponseAt>
+                    </postProcessing>
+                    <applicationProperties type="com.fnfr.svt.adapter.automation.tools.common.documents.TransferableDocumentObject" transferableToolId="com.fnfr.itest.applications.webservices.restful" transferableType="com.fnfr.itest.applications.webservices.properties.restful.RESTfulInvokeProperties" action="/appliances/all_networks" action.inherit="false"/>
+                </item>
+                <item guid="9769534d-f756-4e00-b69f-2c30f5c041bd" action="write">
+                    <command>
+                        <body>[response appliancesAllNetworksInfo]</body>
+                    </command>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                </item>
+            </steps>
+        </item>
+        <item name="tGetApplianceNetwork" isPublic="true">
+            <steps>
+                <item guid="1cb39f61-31a9-40d8-96b5-6277368aff5c" action="GET" session="$session">
+                    <postProcessing>
+                        <storeResponseAt>appliancesAllNetworksInfo</storeResponseAt>
+                    </postProcessing>
+                    <applicationProperties type="com.fnfr.svt.adapter.automation.tools.common.documents.TransferableDocumentObject" transferableToolId="com.fnfr.itest.applications.webservices.restful" transferableType="com.fnfr.itest.applications.webservices.properties.restful.RESTfulInvokeProperties" action="/appliances/all_networks" action.inherit="false"/>
+                </item>
+                <item guid="437dd8ce-1a38-4891-a4c3-94213e973163" action="write">
+                    <command>
+                        <body>[response appliancesAllNetworksInfo]</body>
+                    </command>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                </item>
+            </steps>
+        </item>
+        <item name="xGetAppliancesAllNetworksWithQueues" isPublic="true">
+            <steps>
+                <item guid="5b99e3e0-a57c-46b7-a9f5-b437b1f97f60" action="GET" session="$session">
+                    <postProcessing>
+                        <storeResponseAt>appliancesAllNetworksWithQueuesInfo</storeResponseAt>
+                    </postProcessing>
+                    <applicationProperties type="com.fnfr.svt.adapter.automation.tools.common.documents.TransferableDocumentObject" transferableToolId="com.fnfr.itest.applications.webservices.restful" transferableType="com.fnfr.itest.applications.webservices.properties.restful.RESTfulInvokeProperties" action="/all_networks_with_queue" action.inherit="false"/>
+                </item>
+                <item guid="685ace04-5595-49e0-a287-56a1bc8eb57a" action="write">
+                    <command>
+                        <body>[response appliancesAllNetworksWithQueuesInfo]</body>
+                    </command>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                </item>
+            </steps>
+        </item>
+        <item name="tGetApplianceNetworkWithQueues" isPublic="true">
+            <steps>
+                <item guid="b16473d4-28ff-465d-b230-921ae5a2cfb8" action="GET" session="$session">
+                    <postProcessing>
+                        <storeResponseAt>appliancesAllNetworksWithQueuesInfo</storeResponseAt>
+                    </postProcessing>
+                    <applicationProperties type="com.fnfr.svt.adapter.automation.tools.common.documents.TransferableDocumentObject" transferableToolId="com.fnfr.itest.applications.webservices.restful" transferableType="com.fnfr.itest.applications.webservices.properties.restful.RESTfulInvokeProperties" action="/all_networks_with_queue" action.inherit="false"/>
+                </item>
+                <item guid="d0ad9bcd-f365-4295-809d-de1505a9f4b3" action="write">
+                    <command>
+                        <body>[response appliancesAllNetworksWithQueuesInfo]</body>
+                    </command>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                </item>
+            </steps>
+        </item>
+        <item name="tGetApplianceInterfaces" isPublic="true">
+            <steps>
+                <item guid="ab49d838-e8a7-4605-bf5e-948ce974eb9e" action="GET" session="$session">
+                    <postProcessing>
+                        <storeResponseAt>appliancesAllNetworksWithQueuesInfo</storeResponseAt>
+                    </postProcessing>
+                    <applicationProperties type="com.fnfr.svt.adapter.automation.tools.common.documents.TransferableDocumentObject" transferableToolId="com.fnfr.itest.applications.webservices.restful" transferableType="com.fnfr.itest.applications.webservices.properties.restful.RESTfulInvokeProperties" action="/all_networks_with_queue" action.inherit="false"/>
+                </item>
+                <item guid="17054f95-5f9d-4683-8866-e3ea7483e3a0" action="write">
+                    <command>
+                        <body>[response appliancesAllNetworksWithQueuesInfo]</body>
+                    </command>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                </item>
+            </steps>
+        </item>
+        <item name="tGetApplianceWorkers" isPublic="true">
+            <steps>
+                <item guid="e90b3e57-8eca-42c3-9590-318ef890cca1" action="GET" session="$session">
+                    <postProcessing>
+                        <storeResponseAt>appliancesAllNetworksWithQueuesInfo</storeResponseAt>
+                    </postProcessing>
+                    <applicationProperties type="com.fnfr.svt.adapter.automation.tools.common.documents.TransferableDocumentObject" transferableToolId="com.fnfr.itest.applications.webservices.restful" transferableType="com.fnfr.itest.applications.webservices.properties.restful.RESTfulInvokeProperties" action="/all_networks_with_queue" action.inherit="false"/>
+                </item>
+                <item guid="5b6fd87d-379e-45f6-9702-960517ecd09e" action="write">
+                    <command>
+                        <body>[response appliancesAllNetworksWithQueuesInfo]</body>
+                    </command>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                </item>
+            </steps>
+        </item>
+        <item name="tApplianceWorkersRestart" isPublic="true">
+            <steps>
+                <item guid="94f77fbd-5fa5-48fb-b0eb-76374a1bd7e2" action="GET" session="$session">
+                    <postProcessing>
+                        <storeResponseAt>appliancesAllNetworksWithQueuesInfo</storeResponseAt>
+                    </postProcessing>
+                    <applicationProperties type="com.fnfr.svt.adapter.automation.tools.common.documents.TransferableDocumentObject" transferableToolId="com.fnfr.itest.applications.webservices.restful" transferableType="com.fnfr.itest.applications.webservices.properties.restful.RESTfulInvokeProperties" action="/all_networks_with_queue" action.inherit="false"/>
+                </item>
+                <item guid="3aa53ea6-360e-404b-9d30-053fd64de42c" action="write">
+                    <command>
+                        <body>[response appliancesAllNetworksWithQueuesInfo]</body>
+                    </command>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                </item>
+            </steps>
+        </item>
+        <item name="tApplianceUpdatePassword" isPublic="true">
+            <steps>
+                <item guid="324d6652-4e8d-49f1-b770-ffb57dc674a7" action="GET" session="$session">
+                    <postProcessing>
+                        <storeResponseAt>appliancesAllNetworksWithQueuesInfo</storeResponseAt>
+                    </postProcessing>
+                    <applicationProperties type="com.fnfr.svt.adapter.automation.tools.common.documents.TransferableDocumentObject" transferableToolId="com.fnfr.itest.applications.webservices.restful" transferableType="com.fnfr.itest.applications.webservices.properties.restful.RESTfulInvokeProperties" action="/all_networks_with_queue" action.inherit="false"/>
+                </item>
+                <item guid="bb2de16b-5d46-4af4-b661-3198dae19e0f" action="write">
+                    <command>
+                        <body>[response appliancesAllNetworksWithQueuesInfo]</body>
+                    </command>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                </item>
+            </steps>
+        </item>
+        <item name="tApplianceUpdateNodedPort" isPublic="true">
+            <steps>
+                <item guid="8cea837e-b8e1-4510-8a8a-07cb05c3bc09" action="GET" session="$session">
+                    <postProcessing>
+                        <storeResponseAt>appliancesAllNetworksWithQueuesInfo</storeResponseAt>
+                    </postProcessing>
+                    <applicationProperties type="com.fnfr.svt.adapter.automation.tools.common.documents.TransferableDocumentObject" transferableToolId="com.fnfr.itest.applications.webservices.restful" transferableType="com.fnfr.itest.applications.webservices.properties.restful.RESTfulInvokeProperties" action="/all_networks_with_queue" action.inherit="false"/>
+                </item>
+                <item guid="57749709-c19e-4740-ba27-aa07d51f5d1b" action="write">
+                    <command>
+                        <body>[response appliancesAllNetworksWithQueuesInfo]</body>
+                    </command>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                </item>
+            </steps>
+        </item>
+        <item name="GetNetworks" isPublic="true">
+            <steps>
+                <item guid="ff47daf2-de62-45b7-85ca-8e53249d867f" action="GET" session="$session">
+                    <command>
+                        <body>/profile/networks</body>
+                    </command>
+                    <postProcessing>
+                        <storeResponseAt>networksInfo</storeResponseAt>
+                    </postProcessing>
+                    <applicationProperties type="com.fnfr.svt.adapter.automation.tools.common.documents.TransferableDocumentObject" transferableToolId="com.fnfr.itest.applications.webservices.restful" transferableType="com.fnfr.itest.applications.webservices.properties.restful.RESTfulInvokeProperties" action="/profile/networks" action.inherit="false">
+                        <httpHeader inherit="false" transferableToolId="com.fnfr.itest.applications.webservices.restful">
+                            <memberClasses>
+                                <item>com.fnfr.itest.applications.webservices.properties.HTTPHeaderEntry</item>
+                            </memberClasses>
+                            <item transferableToolId="com.fnfr.itest.applications.webservices.restful" transferableType="com.fnfr.itest.applications.webservices.properties.HTTPHeaderEntry" header="Cookie" header.inherit="false" value="[gget sessionStr]; [param loginUserInfo]" value.inherit="false"/>
+                        </httpHeader>
+                    </applicationProperties>
+                </item>
+                <item guid="5488b027-4e45-4442-a7ad-6dd3adb335a3" action="write">
+                    <command>
+                        <body>[response networksInfo]</body>
+                    </command>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                </item>
+            </steps>
+        </item>
+        <item name="GetSubnets" isPublic="true">
+            <steps>
+                <item guid="cc384a07-59e6-4643-9cc7-421e45021d42" action="GET" session="$session">
+                    <postProcessing>
+                        <storeResponseAt>subnetsInfo</storeResponseAt>
+                    </postProcessing>
+                    <applicationProperties type="com.fnfr.svt.adapter.automation.tools.common.documents.TransferableDocumentObject" transferableToolId="com.fnfr.itest.applications.webservices.restful" transferableType="com.fnfr.itest.applications.webservices.properties.restful.RESTfulInvokeProperties" action="/profile/subnets" action.inherit="false">
+                        <httpHeader inherit="false" transferableToolId="com.fnfr.itest.applications.webservices.restful">
+                            <memberClasses>
+                                <item>com.fnfr.itest.applications.webservices.properties.HTTPHeaderEntry</item>
+                            </memberClasses>
+                            <item transferableToolId="com.fnfr.itest.applications.webservices.restful" transferableType="com.fnfr.itest.applications.webservices.properties.HTTPHeaderEntry" header="Cookie" header.inherit="false" value="[gget sessionStr]; [param loginUserInfo]" value.inherit="false"/>
+                        </httpHeader>
+                    </applicationProperties>
+                </item>
+                <item guid="e8e2c6da-d6e4-499f-9118-7564451a79ba" action="write">
+                    <command>
+                        <body>[response subnetsInfo]</body>
+                    </command>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                </item>
+            </steps>
+        </item>
+        <item name="GetSubnet" isPublic="true">
+            <steps>
+                <item guid="1771cb9e-fa33-4d1d-a853-d524ba82ada8" action="GET" session="$session">
+                    <postProcessing>
+                        <analysisRules>
+                            <item>
+                                <extractorInfo extractorType="query">
+                                    <extractorProperties type="com.fnfr.svt.mapping.execution.extractors.QueryDataExtractorPropertyGroup">
+                                        <query sub="true">//item\\[./name=&quot;$name&quot;\\]/x_id</query>
+                                    </extractorProperties>
+                                </extractorInfo>
+                                <processorInfo ruleType="store">
+                                    <ruleProperties type="com.fnfr.svt.execution.builtin.processors.StoreProcessorPropertyGroup">
+                                        <storageLocation>id</storageLocation>
+                                    </ruleProperties>
+                                </processorInfo>
+                            </item>
+                        </analysisRules>
+                        <storeResponseAt>subnetsInfo</storeResponseAt>
+                    </postProcessing>
+                    <applicationProperties type="com.fnfr.svt.adapter.automation.tools.common.documents.TransferableDocumentObject" transferableToolId="com.fnfr.itest.applications.webservices.restful" transferableType="com.fnfr.itest.applications.webservices.properties.restful.RESTfulInvokeProperties" action="/profile/subnets" action.inherit="false">
+                        <httpHeader inherit="false" transferableToolId="com.fnfr.itest.applications.webservices.restful">
+                            <memberClasses>
+                                <item>com.fnfr.itest.applications.webservices.properties.HTTPHeaderEntry</item>
+                            </memberClasses>
+                            <item transferableToolId="com.fnfr.itest.applications.webservices.restful" transferableType="com.fnfr.itest.applications.webservices.properties.HTTPHeaderEntry" header="Cookie" header.inherit="false" value="[gget sessionStr]; [param loginUserInfo]" value.inherit="false"/>
+                        </httpHeader>
+                    </applicationProperties>
+                </item>
+                <item guid="805af169-d996-41f4-8659-d0423121000d" action="GET" session="$session">
+                    <postProcessing>
+                        <storeResponseAt>subnetInfo</storeResponseAt>
+                    </postProcessing>
+                    <applicationProperties type="com.fnfr.svt.adapter.automation.tools.common.documents.TransferableDocumentObject" transferableToolId="com.fnfr.itest.applications.webservices.restful" transferableType="com.fnfr.itest.applications.webservices.properties.restful.RESTfulInvokeProperties" action="/profile/subnets/$id" action.inherit="false">
+                        <httpHeader inherit="false" transferableToolId="com.fnfr.itest.applications.webservices.restful">
+                            <memberClasses>
+                                <item>com.fnfr.itest.applications.webservices.properties.HTTPHeaderEntry</item>
+                            </memberClasses>
+                            <item transferableToolId="com.fnfr.itest.applications.webservices.restful" transferableType="com.fnfr.itest.applications.webservices.properties.HTTPHeaderEntry" header="Cookie" header.inherit="false" value="[gget sessionStr]; [param loginUserInfo]" value.inherit="false"/>
+                        </httpHeader>
+                    </applicationProperties>
+                </item>
+                <item guid="aa08892e-0fc8-4fcd-bc82-e06a2f03d513" action="write">
+                    <command>
+                        <body>[response subnetInfo]</body>
+                    </command>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                </item>
+            </steps>
+            <arguments>
+                <item name="name">
+                    <isMandatory>true</isMandatory>
+                </item>
+            </arguments>
+        </item>
+        <item name="GetSubnetOptions" isPublic="true">
+            <steps>
+                <item guid="3cc9b11e-13f6-4f46-8730-0173ec0d10ad" action="GET" session="$session">
+                    <postProcessing>
+                        <analysisRules>
+                            <item>
+                                <extractorInfo extractorType="query">
+                                    <extractorProperties type="com.fnfr.svt.mapping.execution.extractors.QueryDataExtractorPropertyGroup">
+                                        <query sub="true">//item\\[./name=&quot;$name&quot;\\]/x_id</query>
+                                    </extractorProperties>
+                                </extractorInfo>
+                                <processorInfo ruleType="store">
+                                    <ruleProperties type="com.fnfr.svt.execution.builtin.processors.StoreProcessorPropertyGroup">
+                                        <storageLocation>id</storageLocation>
+                                    </ruleProperties>
+                                </processorInfo>
+                            </item>
+                        </analysisRules>
+                        <storeResponseAt>subnetsInfo</storeResponseAt>
+                    </postProcessing>
+                    <applicationProperties type="com.fnfr.svt.adapter.automation.tools.common.documents.TransferableDocumentObject" transferableToolId="com.fnfr.itest.applications.webservices.restful" transferableType="com.fnfr.itest.applications.webservices.properties.restful.RESTfulInvokeProperties" action="/profile/subnets" action.inherit="false">
+                        <httpHeader inherit="false" transferableToolId="com.fnfr.itest.applications.webservices.restful">
+                            <memberClasses>
+                                <item>com.fnfr.itest.applications.webservices.properties.HTTPHeaderEntry</item>
+                            </memberClasses>
+                            <item transferableToolId="com.fnfr.itest.applications.webservices.restful" transferableType="com.fnfr.itest.applications.webservices.properties.HTTPHeaderEntry" header="Cookie" header.inherit="false" value="[gget sessionStr]; [param loginUserInfo]" value.inherit="false"/>
+                        </httpHeader>
+                    </applicationProperties>
+                </item>
+                <item guid="d8c78ce6-b8fb-405b-8f3a-c0c5464e0e10" action="GET" session="$session">
+                    <postProcessing>
+                        <storeResponseAt>subnetOptionsInfo</storeResponseAt>
+                    </postProcessing>
+                    <applicationProperties type="com.fnfr.svt.adapter.automation.tools.common.documents.TransferableDocumentObject" transferableToolId="com.fnfr.itest.applications.webservices.restful" transferableType="com.fnfr.itest.applications.webservices.properties.restful.RESTfulInvokeProperties" action="/profile/subnets/$id/options" action.inherit="false">
+                        <httpHeader inherit="false" transferableToolId="com.fnfr.itest.applications.webservices.restful">
+                            <memberClasses>
+                                <item>com.fnfr.itest.applications.webservices.properties.HTTPHeaderEntry</item>
+                            </memberClasses>
+                            <item transferableToolId="com.fnfr.itest.applications.webservices.restful" transferableType="com.fnfr.itest.applications.webservices.properties.HTTPHeaderEntry" header="Cookie" header.inherit="false" value="[gget sessionStr]; [param loginUserInfo]" value.inherit="false"/>
+                        </httpHeader>
+                    </applicationProperties>
+                </item>
+                <item guid="2ff26cc8-a65a-4ada-9d02-3cbe594b47d5" action="write">
+                    <command>
+                        <body>[response subnetOptionsInfo]</body>
+                    </command>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                </item>
+            </steps>
+            <arguments>
+                <item name="name">
+                    <isMandatory>true</isMandatory>
+                </item>
+            </arguments>
+        </item>
+        <item name="CreateSubnet" isPublic="true">
+            <steps>
+                <item guid="673e8dc7-1db7-4bbb-914c-c7426987347f" action="POST" session="$session">
+                    <postProcessing>
+                        <storeResponseAt>subnetInfo</storeResponseAt>
+                    </postProcessing>
+                    <applicationProperties type="com.fnfr.svt.adapter.automation.tools.common.documents.TransferableDocumentObject" transferableToolId="com.fnfr.itest.applications.webservices.restful" transferableType="com.fnfr.itest.applications.webservices.properties.restful.RESTfulInvokeProperties" message="$newSubnetParam" message.inherit="false" action="/profile/subnets" action.inherit="false">
+                        <httpHeader inherit="false" transferableToolId="com.fnfr.itest.applications.webservices.restful">
+                            <memberClasses>
+                                <item>com.fnfr.itest.applications.webservices.properties.HTTPHeaderEntry</item>
+                            </memberClasses>
+                            <item transferableToolId="com.fnfr.itest.applications.webservices.restful" transferableType="com.fnfr.itest.applications.webservices.properties.HTTPHeaderEntry" header="Content_Type" header.inherit="false" value="application/json; charset=UTF-8" value.inherit="false"/>
+                            <item transferableToolId="com.fnfr.itest.applications.webservices.restful" transferableType="com.fnfr.itest.applications.webservices.properties.HTTPHeaderEntry" header="Cookie" header.inherit="false" value="[gget sessionStr]; [param loginUserInfo]" value.inherit="false"/>
+                        </httpHeader>
+                    </applicationProperties>
+                </item>
+                <item guid="7571a7f3-dd24-4015-8344-ff5d1a535780" action="write">
+                    <command>
+                        <body>[response subnetInfo]</body>
+                    </command>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                </item>
+            </steps>
+            <arguments>
+                <item name="newSubnetParam">
+                    <isMandatory>true</isMandatory>
+                </item>
+            </arguments>
+        </item>
+        <item name="DeleteSubnet" isPublic="true">
+            <steps>
+                <item guid="82035800-848a-480c-800d-3f471fd647a0" action="GET" session="$session">
+                    <postProcessing>
+                        <analysisRules>
+                            <item>
+                                <extractorInfo extractorType="query">
+                                    <extractorProperties type="com.fnfr.svt.mapping.execution.extractors.QueryDataExtractorPropertyGroup">
+                                        <query sub="true">//item\\[./name=&quot;$name&quot;\\]/x_id</query>
+                                    </extractorProperties>
+                                </extractorInfo>
+                                <processorInfo ruleType="store">
+                                    <ruleProperties type="com.fnfr.svt.execution.builtin.processors.StoreProcessorPropertyGroup">
+                                        <storageLocation>id</storageLocation>
+                                    </ruleProperties>
+                                </processorInfo>
+                            </item>
+                        </analysisRules>
+                        <storeResponseAt>subnetsInfo</storeResponseAt>
+                    </postProcessing>
+                    <applicationProperties type="com.fnfr.svt.adapter.automation.tools.common.documents.TransferableDocumentObject" transferableToolId="com.fnfr.itest.applications.webservices.restful" transferableType="com.fnfr.itest.applications.webservices.properties.restful.RESTfulInvokeProperties" action="/profile/subnets" action.inherit="false">
+                        <httpHeader inherit="false" transferableToolId="com.fnfr.itest.applications.webservices.restful">
+                            <memberClasses>
+                                <item>com.fnfr.itest.applications.webservices.properties.HTTPHeaderEntry</item>
+                            </memberClasses>
+                            <item transferableToolId="com.fnfr.itest.applications.webservices.restful" transferableType="com.fnfr.itest.applications.webservices.properties.HTTPHeaderEntry" header="Cookie" header.inherit="false" value="[gget sessionStr]; [param loginUserInfo]" value.inherit="false"/>
+                        </httpHeader>
+                    </applicationProperties>
+                </item>
+                <item guid="59363a63-d598-4bd7-a989-1c02f7731c23" action="DELETE" session="$session">
+                    <postProcessing>
+                        <storeResponseAt>deleteInfo</storeResponseAt>
+                    </postProcessing>
+                    <applicationProperties type="com.fnfr.svt.adapter.automation.tools.common.documents.TransferableDocumentObject" transferableToolId="com.fnfr.itest.applications.webservices.restful" transferableType="com.fnfr.itest.applications.webservices.properties.restful.RESTfulInvokeProperties" action="/profile/subnets/$id" action.inherit="false">
+                        <httpHeader inherit="false" transferableToolId="com.fnfr.itest.applications.webservices.restful">
+                            <memberClasses>
+                                <item>com.fnfr.itest.applications.webservices.properties.HTTPHeaderEntry</item>
+                            </memberClasses>
+                            <item transferableToolId="com.fnfr.itest.applications.webservices.restful" transferableType="com.fnfr.itest.applications.webservices.properties.HTTPHeaderEntry" header="Cookie" header.inherit="false" value="[gget sessionStr]; [param loginUserInfo]" value.inherit="false"/>
+                        </httpHeader>
+                    </applicationProperties>
+                </item>
+                <item guid="e6b1d55a-1d1f-4e27-905d-2ebefae46b82" action="write">
+                    <command>
+                        <body>[response deleteInfo]</body>
+                    </command>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                </item>
+            </steps>
+            <arguments>
+                <item name="name">
+                    <isMandatory>true</isMandatory>
+                </item>
+            </arguments>
+        </item>
+        <item name="xUpdateSubnet" isPublic="true">
+            <steps>
+                <item guid="7d8b81d8-3768-4f73-824c-5aa2abcfef62" action="GET" session="$session">
+                    <postProcessing>
+                        <analysisRules>
+                            <item>
+                                <extractorInfo extractorType="query">
+                                    <extractorProperties type="com.fnfr.svt.mapping.execution.extractors.QueryDataExtractorPropertyGroup">
+                                        <query sub="true">//item\\[./name=&quot;$name&quot;\\]/x_id</query>
+                                    </extractorProperties>
+                                </extractorInfo>
+                                <processorInfo ruleType="store">
+                                    <ruleProperties type="com.fnfr.svt.execution.builtin.processors.StoreProcessorPropertyGroup">
+                                        <storageLocation>id</storageLocation>
+                                    </ruleProperties>
+                                </processorInfo>
+                            </item>
+                        </analysisRules>
+                        <storeResponseAt>subnetsInfo</storeResponseAt>
+                    </postProcessing>
+                    <applicationProperties type="com.fnfr.svt.adapter.automation.tools.common.documents.TransferableDocumentObject" transferableToolId="com.fnfr.itest.applications.webservices.restful" transferableType="com.fnfr.itest.applications.webservices.properties.restful.RESTfulInvokeProperties" action="/profile/subnets" action.inherit="false">
+                        <httpHeader inherit="false" transferableToolId="com.fnfr.itest.applications.webservices.restful">
+                            <memberClasses>
+                                <item>com.fnfr.itest.applications.webservices.properties.HTTPHeaderEntry</item>
+                            </memberClasses>
+                            <item transferableToolId="com.fnfr.itest.applications.webservices.restful" transferableType="com.fnfr.itest.applications.webservices.properties.HTTPHeaderEntry" header="Cookie" header.inherit="false" value="[gget sessionStr]; [param loginUserInfo]" value.inherit="false"/>
+                        </httpHeader>
+                    </applicationProperties>
+                </item>
+                <item guid="c36aed00-496f-44fe-9373-dc19fe0c0323" action="GET" session="$session">
+                    <postProcessing>
+                        <analysisRules>
+                            <item>
+                                <extractorInfo extractorType="query">
+                                    <extractorProperties type="com.fnfr.svt.mapping.execution.extractors.QueryDataExtractorPropertyGroup">
+                                        <query sub="true">//name</query>
+                                    </extractorProperties>
+                                </extractorInfo>
+                                <processorInfo ruleType="assert">
+                                    <ruleProperties type="com.fnfr.svt.execution.builtin.processors.AssertionPropertyGroup">
+                                        <expression>$value == $name</expression>
+                                        <actionsWhenTrue>
+                                            <item actionId="DeclareExecutionIssue">
+                                                <actionProperties type="com.fnfr.svt.execution.builtin.actions.ExecutionIssuePropertyGroup" severity="OK">
+                                                    <message>{auto_message_true}</message>
+                                                </actionProperties>
+                                            </item>
+                                            <item actionId="PassTestIfNotAlreadyFailed">
+                                                <actionProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                            </item>
+                                        </actionsWhenTrue>
+                                        <actionsWhenFalse>
+                                            <item actionId="DeclareExecutionIssue">
+                                                <actionProperties type="com.fnfr.svt.execution.builtin.actions.ExecutionIssuePropertyGroup">
+                                                    <message>{auto_message_false}</message>
+                                                </actionProperties>
+                                            </item>
+                                            <item actionId="FailTest">
+                                                <actionProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                            </item>
+                                        </actionsWhenFalse>
+                                    </ruleProperties>
+                                </processorInfo>
+                            </item>
+                        </analysisRules>
+                        <storeResponseAt>subnetInfo</storeResponseAt>
+                    </postProcessing>
+                    <applicationProperties type="com.fnfr.svt.adapter.automation.tools.common.documents.TransferableDocumentObject" transferableToolId="com.fnfr.itest.applications.webservices.restful" transferableType="com.fnfr.itest.applications.webservices.properties.restful.RESTfulInvokeProperties" action="/profile/subnets/$id" action.inherit="false">
+                        <httpHeader inherit="false" transferableToolId="com.fnfr.itest.applications.webservices.restful">
+                            <memberClasses>
+                                <item>com.fnfr.itest.applications.webservices.properties.HTTPHeaderEntry</item>
+                            </memberClasses>
+                            <item transferableToolId="com.fnfr.itest.applications.webservices.restful" transferableType="com.fnfr.itest.applications.webservices.properties.HTTPHeaderEntry" header="Cookie" header.inherit="false" value="[gget sessionStr]; [param loginUserInfo]" value.inherit="false"/>
+                        </httpHeader>
+                    </applicationProperties>
+                </item>
+                <item guid="15039b68-57fe-488a-babd-b461963a3ad0" action="PUT" session="$session">
+                    <postProcessing>
+                        <storeResponseAt>updatedSubnetInfo</storeResponseAt>
+                    </postProcessing>
+                    <applicationProperties type="com.fnfr.svt.adapter.automation.tools.common.documents.TransferableDocumentObject" transferableToolId="com.fnfr.itest.applications.webservices.restful" transferableType="com.fnfr.itest.applications.webservices.properties.restful.RESTfulInvokeProperties" message="$updatedSubnetParam" message.inherit="false" action="/profile/subnets/$id" action.inherit="false">
+                        <httpHeader inherit="false" transferableToolId="com.fnfr.itest.applications.webservices.restful">
+                            <memberClasses>
+                                <item>com.fnfr.itest.applications.webservices.properties.HTTPHeaderEntry</item>
+                            </memberClasses>
+                            <item transferableToolId="com.fnfr.itest.applications.webservices.restful" transferableType="com.fnfr.itest.applications.webservices.properties.HTTPHeaderEntry" header="Content_Type" header.inherit="false" value="application/json; charset=UTF-8" value.inherit="false"/>
+                            <item transferableToolId="com.fnfr.itest.applications.webservices.restful" transferableType="com.fnfr.itest.applications.webservices.properties.HTTPHeaderEntry" header="Cookie" header.inherit="false" value="[gget sessionStr]; [param loginUserInfo]" value.inherit="false"/>
+                        </httpHeader>
+                    </applicationProperties>
+                </item>
+                <item guid="dd0c03eb-8648-4a41-8a11-5b606487d416" action="write">
+                    <command>
+                        <body>[response updatedSubnetInfo]</body>
+                    </command>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                </item>
+            </steps>
+            <arguments>
+                <item name="name">
+                    <isMandatory>true</isMandatory>
+                </item>
+                <item name="updatedSubnetParam">
+                    <isMandatory>true</isMandatory>
+                </item>
+            </arguments>
+        </item>
+        <item name="GetPlayerTestTemplate" isPublic="true">
+            <steps>
+                <item guid="19dba88a-9e12-4ff8-840c-9b64d4d2a0d3" action="GET" session="$session">
+                    <postProcessing>
+                        <storeResponseAt>templateInfo</storeResponseAt>
+                    </postProcessing>
+                    <applicationProperties type="com.fnfr.svt.adapter.automation.tools.common.documents.TransferableDocumentObject" transferableToolId="com.fnfr.itest.applications.webservices.restful" transferableType="com.fnfr.itest.applications.webservices.properties.restful.RESTfulInvokeProperties" action="/playerapi/tests/$type/template" action.inherit="false">
+                        <httpHeader inherit="false" transferableToolId="com.fnfr.itest.applications.webservices.restful">
+                            <memberClasses>
+                                <item>com.fnfr.itest.applications.webservices.properties.HTTPHeaderEntry</item>
+                            </memberClasses>
+                            <item transferableToolId="com.fnfr.itest.applications.webservices.restful" transferableType="com.fnfr.itest.applications.webservices.properties.HTTPHeaderEntry" header="Cookie" header.inherit="false" value="[gget sessionStr]; [param loginUserInfo]" value.inherit="false"/>
+                        </httpHeader>
+                    </applicationProperties>
+                </item>
+                <item guid="7476a513-4555-4b78-92ba-8a6f673b5e38" action="write">
+                    <command>
+                        <body>[response templateInfo]</body>
+                    </command>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                </item>
+            </steps>
+            <arguments>
+                <item name="type">
+                    <isMandatory>true</isMandatory>
+                </item>
+            </arguments>
+        </item>
+    </procedures>
+</testCase>

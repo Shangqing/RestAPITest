@@ -1,0 +1,100 @@
+<?xml version="1.0"?>
+<TestCaseCatalog version="4.3.0.71069">
+    <testCaseCatalog>
+        <item name="Utilities/utilities.fftc">
+            <tcDescriptor version="4.3.0.71069">
+                <general>
+                    <isProcedureLibrary>true</isProcedureLibrary>
+                    <sessionClass includeTestCase="true" sessionType="project://RestAPITest/session_profiles/Rest_AVNext.ffsp"/>
+                </general>
+                <procedures>
+                    <item name="login" isPublic="true"/>
+                    <item name="GetUsers" isPublic="true"/>
+                    <item name="GetUser" isPublic="true">
+                        <arguments>
+                            <item name="email">
+                                <isMandatory>true</isMandatory>
+                            </item>
+                        </arguments>
+                    </item>
+                    <item name="GetLicenses" isPublic="true"/>
+                    <item name="xGetSystemAbout" isPublic="true"/>
+                    <item name="GetSystemLiveSupport" isPublic="true"/>
+                    <item name="xSystemLiveSupportCommand" isPublic="true">
+                        <arguments>
+                            <item name="cmd">
+                                <description>stop or start</description>
+                                <isMandatory>true</isMandatory>
+                            </item>
+                        </arguments>
+                    </item>
+                    <item name="GetSystemVersions" isPublic="true"/>
+                    <item name="xGetSystemUpdate" isPublic="true"/>
+                    <item name="GetSystemGemStatus" isPublic="true"/>
+                    <item name="GetAppliances" isPublic="true"/>
+                    <item name="tGetAppliance" isPublic="true"/>
+                    <item name="tDeleteAppliance" isPublic="true"/>
+                    <item name="GetAppliancesShortList" isPublic="true"/>
+                    <item name="GetAppliancesAllQueues" isPublic="true"/>
+                    <item name="tGetApplianceQueues" isPublic="true"/>
+                    <item name="GetAppliancesAllNetworks" isPublic="true"/>
+                    <item name="tGetApplianceNetwork" isPublic="true"/>
+                    <item name="xGetAppliancesAllNetworksWithQueues" isPublic="true"/>
+                    <item name="tGetApplianceNetworkWithQueues" isPublic="true"/>
+                    <item name="tGetApplianceInterfaces" isPublic="true"/>
+                    <item name="tGetApplianceWorkers" isPublic="true"/>
+                    <item name="tApplianceWorkersRestart" isPublic="true"/>
+                    <item name="tApplianceUpdatePassword" isPublic="true"/>
+                    <item name="tApplianceUpdateNodedPort" isPublic="true"/>
+                    <item name="GetNetworks" isPublic="true"/>
+                    <item name="GetSubnets" isPublic="true"/>
+                    <item name="GetSubnet" isPublic="true">
+                        <arguments>
+                            <item name="name">
+                                <isMandatory>true</isMandatory>
+                            </item>
+                        </arguments>
+                    </item>
+                    <item name="GetSubnetOptions" isPublic="true">
+                        <arguments>
+                            <item name="name">
+                                <isMandatory>true</isMandatory>
+                            </item>
+                        </arguments>
+                    </item>
+                    <item name="CreateSubnet" isPublic="true">
+                        <arguments>
+                            <item name="newSubnetParam">
+                                <isMandatory>true</isMandatory>
+                            </item>
+                        </arguments>
+                    </item>
+                    <item name="DeleteSubnet" isPublic="true">
+                        <arguments>
+                            <item name="name">
+                                <isMandatory>true</isMandatory>
+                            </item>
+                        </arguments>
+                    </item>
+                    <item name="xUpdateSubnet" isPublic="true">
+                        <arguments>
+                            <item name="name">
+                                <isMandatory>true</isMandatory>
+                            </item>
+                            <item name="updatedSubnetParam">
+                                <isMandatory>true</isMandatory>
+                            </item>
+                        </arguments>
+                    </item>
+                    <item name="GetPlayerTestTemplate" isPublic="true">
+                        <arguments>
+                            <item name="type">
+                                <isMandatory>true</isMandatory>
+                            </item>
+                        </arguments>
+                    </item>
+                </procedures>
+            </tcDescriptor>
+        </item>
+    </testCaseCatalog>
+</TestCaseCatalog>

@@ -1,0 +1,413 @@
+<?xml version="1.0"?>
+<testCase version="4.3.0.71069">
+    <procedures>
+        <item name="main">
+            <steps>
+                <item guid="5455bb09-aab4-47b1-abfc-7e2ddc1e58b9" action="open" session="t1">
+                    <command>
+                        <body>project://RestAPITest/session_profiles/Rest_Studio.ffsp</body>
+                    </command>
+                    <applicationProperties type="com.fnfr.svt.documents.OpenStepPropertyGroup">
+                        <stepProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                        <sessionProperties type="com.fnfr.svt.adapter.automation.tools.common.documents.TransferableDocumentObject" transferableToolId="com.fnfr.itest.applications.webservices.restful" transferableType="com.fnfr.itest.applications.webservices.properties.restful.RESTfulSessionProperties"/>
+                        <sessionClass type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                    </applicationProperties>
+                </item>
+                <item guid="f297e403-f073-47d5-a0b1-23d4143437ca" action="open" session="t2">
+                    <command>
+                        <body>project://RestAPITest/session_profiles/Web_studio.ffsp</body>
+                    </command>
+                    <applicationProperties type="com.fnfr.svt.documents.OpenStepPropertyGroup">
+                        <stepProperties type="com.fnfr.svt.applications.web.documents.stepproperties.StepProperties"/>
+                        <sessionProperties type="com.fnfr.svt.applications.web.documents.WebSessionProperties"/>
+                        <sessionClass type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                    </applicationProperties>
+                    <useFieldsInCommand>false</useFieldsInCommand>
+                </item>
+                <item guid="ede8a45f-5d7f-49b5-9fb6-46eb80cb69ea" action="comment" skip="true">
+                    <command>
+                        <body>Download application</body>
+                    </command>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                    <useFieldsInCommand>false</useFieldsInCommand>
+                </item>
+                <item guid="17d4c56b-d2c1-4e5b-851b-197422625498" action="GET" session="t1" skip="true" normalOffset="37.775" estimatedStepExecutionTime="1.903">
+                    <command>
+                        <body>/scenarios?q=&amp;facets=%7B%7D&amp;page=1&amp;per_page=200&amp;subtype=appid&amp;include=results%2Cfacets%2Ccolumns&amp;include_meta=false</body>
+                    </command>
+                    <postProcessing>
+                        <analysisRules>
+                            <item>
+                                <extractorInfo extractorType="query">
+                                    <extractorProperties type="com.fnfr.svt.mapping.execution.extractors.QueryDataExtractorPropertyGroup">
+                                        <query>mapped/Json/total_pages</query>
+                                    </extractorProperties>
+                                </extractorInfo>
+                                <processorInfo ruleType="store">
+                                    <ruleProperties type="com.fnfr.svt.execution.builtin.processors.StoreProcessorPropertyGroup">
+                                        <storageLocation>totalPages</storageLocation>
+                                    </ruleProperties>
+                                </processorInfo>
+                            </item>
+                        </analysisRules>
+                    </postProcessing>
+                    <applicationProperties type="com.fnfr.svt.adapter.automation.tools.common.documents.TransferableDocumentObject" transferableToolId="com.fnfr.itest.applications.webservices.restful" transferableType="com.fnfr.itest.applications.webservices.properties.restful.RESTfulInvokeProperties" action="/scenarios?q=&amp;facets=%7B%7D&amp;page=1&amp;per_page=200&amp;subtype=appid&amp;include=results%2Cfacets%2Ccolumns&amp;include_meta=false" action.inherit="false"/>
+                </item>
+                <item guid="b9f72d1d-f83b-4a45-8d97-10f7380b1dc5" action="eval" skip="true">
+                    <command>
+                        <body>set idLists {}</body>
+                    </command>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                    <useFieldsInCommand>false</useFieldsInCommand>
+                </item>
+                <item guid="34ac3c0f-5d2b-4638-90b6-cbf1a870ab39" action="for" skip="true">
+                    <command>
+                        <body>{set i 1} {$i &lt;=$totalPages} {incr i}</body>
+                    </command>
+                    <nestedSteps>
+                        <item guid="eb3f3a54-74f4-4c02-b266-d15587e75bd7" action="GET" session="t1" normalOffset="37.775" estimatedStepExecutionTime="1.903">
+                            <command>
+                                <body>/scenarios?q=&amp;facets=%7B%7D&amp;page=$i&amp;per_page=200&amp;subtype=appid&amp;include=results%2Cfacets%2Ccolumns&amp;include_meta=false</body>
+                            </command>
+                            <postProcessing>
+                                <analysisRules>
+                                    <item>
+                                        <extractorInfo extractorType="query">
+                                            <extractorProperties type="com.fnfr.svt.mapping.execution.extractors.QueryDataExtractorPropertyGroup">
+                                                <query>//x_id</query>
+                                            </extractorProperties>
+                                        </extractorInfo>
+                                        <processorInfo ruleType="store">
+                                            <ruleProperties type="com.fnfr.svt.execution.builtin.processors.StoreProcessorPropertyGroup">
+                                                <storageLocation>idList</storageLocation>
+                                            </ruleProperties>
+                                        </processorInfo>
+                                    </item>
+                                </analysisRules>
+                            </postProcessing>
+                            <applicationProperties type="com.fnfr.svt.adapter.automation.tools.common.documents.TransferableDocumentObject" transferableToolId="com.fnfr.itest.applications.webservices.restful" transferableType="com.fnfr.itest.applications.webservices.properties.restful.RESTfulInvokeProperties" action="/scenarios?q=&amp;facets=%7B%7D&amp;page=$i&amp;per_page=200&amp;subtype=appid&amp;include=results%2Cfacets%2Ccolumns&amp;include_meta=false" action.inherit="false">
+                                <authentication transferableToolId="com.fnfr.itest.applications.webservices.restful" transferableType="com.fnfr.itest.applications.webservices.properties.AuthenticationProperties" user="shangqing.liu@spirent.com" user.inherit="false" password.masked="true" password="AiRWju4XCF68/xt4CGWUjg==" password.inherit="false"/>
+                            </applicationProperties>
+                        </item>
+                        <item guid="ba757858-8238-43a9-9bf2-e79418a524ba" action="eval">
+                            <command>
+                                <body>set idLists [concat $idLists $idList]</body>
+                            </command>
+                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                            <useFieldsInCommand>false</useFieldsInCommand>
+                        </item>
+                    </nestedSteps>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                    <useFieldsInCommand>false</useFieldsInCommand>
+                </item>
+                <item guid="9c61aa1f-2b12-45e5-b61d-37b38ed0c827" action="eval" skip="true">
+                    <command>
+                        <body>llength $idLists</body>
+                    </command>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                    <useFieldsInCommand>false</useFieldsInCommand>
+                </item>
+                <item guid="260aa809-d58c-4a16-b42b-6a6c09240dd5" action="foreach" skip="true">
+                    <command>
+                        <body>id $idLists</body>
+                    </command>
+                    <nestedSteps>
+                        <item guid="caf0f31c-31f6-4daa-a4a1-2468f8497a0f" action="setFilePath" session="t2" normalOffset="12.577">
+                            <command>
+                                <body>C:\\\\Documents and Settings\\\\sqliu\\\\My Documents\\\\scenario\\\\applications\\\\$id.msl</body>
+                            </command>
+                            <applicationProperties type="com.fnfr.svt.applications.web.documents.stepproperties.StepProperties"/>
+                        </item>
+                        <item guid="407ad510-76c4-4e3d-b12b-53586eedb633" action="go" session="t2" estimatedStepExecutionTime="1.39">
+                            <command>
+                                <body>http://10.10.4.16/scenarios/msl?id=$id</body>
+                            </command>
+                            <applicationProperties type="com.fnfr.svt.applications.web.documents.stepproperties.StepProperties"/>
+                        </item>
+                    </nestedSteps>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                    <useFieldsInCommand>false</useFieldsInCommand>
+                </item>
+                <item guid="b951e57d-c676-4b2c-8f53-0a55c613449d" action="comment">
+                    <command>
+                        <body>Download attack</body>
+                    </command>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                    <useFieldsInCommand>false</useFieldsInCommand>
+                </item>
+                <item guid="4b87404b-313b-4287-8776-b620314aec8c" action="GET" session="t1" normalOffset="37.775" estimatedStepExecutionTime="1.903">
+                    <command>
+                        <body>/scenarios?q=&amp;facets=%7B%7D&amp;page=1&amp;per_page=200&amp;subtype=attacks&amp;include=results%2Cfacets%2Ccolumns&amp;include_meta=false</body>
+                    </command>
+                    <postProcessing>
+                        <analysisRules>
+                            <item>
+                                <extractorInfo extractorType="query">
+                                    <extractorProperties type="com.fnfr.svt.mapping.execution.extractors.QueryDataExtractorPropertyGroup">
+                                        <query>mapped/Json/total_pages</query>
+                                    </extractorProperties>
+                                </extractorInfo>
+                                <processorInfo ruleType="store">
+                                    <ruleProperties type="com.fnfr.svt.execution.builtin.processors.StoreProcessorPropertyGroup">
+                                        <storageLocation>totalPages</storageLocation>
+                                    </ruleProperties>
+                                </processorInfo>
+                            </item>
+                        </analysisRules>
+                    </postProcessing>
+                    <applicationProperties type="com.fnfr.svt.adapter.automation.tools.common.documents.TransferableDocumentObject" transferableToolId="com.fnfr.itest.applications.webservices.restful" transferableType="com.fnfr.itest.applications.webservices.properties.restful.RESTfulInvokeProperties" action="/scenarios?q=&amp;facets=%7B%7D&amp;page=1&amp;per_page=200&amp;subtype=attacks&amp;include=results%2Cfacets%2Ccolumns&amp;include_meta=false" action.inherit="false">
+                        <authentication transferableToolId="com.fnfr.itest.applications.webservices.restful" transferableType="com.fnfr.itest.applications.webservices.properties.AuthenticationProperties" user="shangqing.liu@spirent.com" user.inherit="false" password.masked="true" password="AiRWju4XCF68/xt4CGWUjg==" password.inherit="false"/>
+                    </applicationProperties>
+                </item>
+                <item guid="d3a7fb2f-582f-4159-896a-9877dd296116" action="eval">
+                    <command>
+                        <body>set idLists {}</body>
+                    </command>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                    <useFieldsInCommand>false</useFieldsInCommand>
+                </item>
+                <item guid="638fe7b7-9112-4f04-8784-69006d5d1a28" action="eval">
+                    <command>
+                        <body>array set arr {}</body>
+                    </command>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                    <useFieldsInCommand>false</useFieldsInCommand>
+                </item>
+                <item guid="ef0203e2-a983-4278-b472-aa1cc4aa354a" action="for">
+                    <command>
+                        <body>{set i 1} {$i &lt;=$totalPages} {incr i}</body>
+                    </command>
+                    <nestedSteps>
+                        <item guid="28621c85-8cba-461f-8a6c-511f56eb6cc5" action="GET" session="t1" normalOffset="37.775" estimatedStepExecutionTime="1.903">
+                            <command>
+                                <body>/scenarios?q=&amp;facets=%7B%7D&amp;page=$i&amp;per_page=200&amp;subtype=attacks&amp;include=results%2Cfacets%2Ccolumns&amp;include_meta=false</body>
+                            </command>
+                            <postProcessing>
+                                <analysisRules>
+                                    <item>
+                                        <extractorInfo extractorType="query">
+                                            <extractorProperties type="com.fnfr.svt.mapping.execution.extractors.QueryDataExtractorPropertyGroup">
+                                                <query>//x_id</query>
+                                            </extractorProperties>
+                                        </extractorInfo>
+                                        <processorInfo ruleType="store">
+                                            <ruleProperties type="com.fnfr.svt.execution.builtin.processors.StoreProcessorPropertyGroup">
+                                                <storageLocation>idList</storageLocation>
+                                            </ruleProperties>
+                                        </processorInfo>
+                                    </item>
+                                </analysisRules>
+                                <storeResponseAt>scenario</storeResponseAt>
+                            </postProcessing>
+                            <applicationProperties type="com.fnfr.svt.adapter.automation.tools.common.documents.TransferableDocumentObject" transferableToolId="com.fnfr.itest.applications.webservices.restful" transferableType="com.fnfr.itest.applications.webservices.properties.restful.RESTfulInvokeProperties" action="/scenarios?q=&amp;facets=%7B%7D&amp;page=$i&amp;per_page=200&amp;subtype=attacks&amp;include=results%2Cfacets%2Ccolumns&amp;include_meta=false" action.inherit="false">
+                                <authentication transferableToolId="com.fnfr.itest.applications.webservices.restful" transferableType="com.fnfr.itest.applications.webservices.properties.AuthenticationProperties" user="shangqing.liu@spirent.com" user.inherit="false" password.masked="true" password="AiRWju4XCF68/xt4CGWUjg==" password.inherit="false"/>
+                            </applicationProperties>
+                        </item>
+                        <item guid="19c6ea41-d6c6-49ca-95be-771bba91ac88" action="foreach">
+                            <command>
+                                <body>id $idList</body>
+                            </command>
+                            <nestedSteps>
+                                <item guid="548ccabd-dd97-41e1-9bb7-c3b707ca2f60" action="eval">
+                                    <command>
+                                        <body>set nid [format &quot;%s.%s&quot; $id [query scenario //item\\[./x_id=&quot;$id&quot;\\]/name]]</body>
+                                    </command>
+                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                    <useFieldsInCommand>false</useFieldsInCommand>
+                                </item>
+                                <item guid="7d738e3c-64a6-4608-884a-0003700cb4c9" action="eval">
+                                    <command>
+                                        <body>set arr($id) $nid</body>
+                                    </command>
+                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                    <useFieldsInCommand>false</useFieldsInCommand>
+                                </item>
+                            </nestedSteps>
+                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                            <useFieldsInCommand>false</useFieldsInCommand>
+                        </item>
+                        <item guid="221a835c-ed56-42c1-a5d0-fafa1dd53945" action="eval">
+                            <command>
+                                <body>set idLists [concat $idLists $idList]</body>
+                            </command>
+                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                            <useFieldsInCommand>false</useFieldsInCommand>
+                        </item>
+                    </nestedSteps>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                    <useFieldsInCommand>false</useFieldsInCommand>
+                </item>
+                <item guid="b758549c-a336-4299-a6b9-d52f8f0a761e" action="eval">
+                    <command>
+                        <body>llength $idLists</body>
+                    </command>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                    <useFieldsInCommand>false</useFieldsInCommand>
+                </item>
+                <item guid="e7937493-a4c4-41b5-bb86-87a85b4ee2c5" action="foreach">
+                    <command>
+                        <body>id $idLists</body>
+                    </command>
+                    <nestedSteps>
+                        <item guid="32b9bb2e-a804-4a97-a4f1-c9fa5490f62b" action="setFilePath" session="t2" normalOffset="12.577">
+                            <command>
+                                <body>C:\\\\Documents and Settings\\\\sqliu\\\\My Documents\\\\scenario\\\\attacks\\\\$arr($id).msl</body>
+                            </command>
+                            <applicationProperties type="com.fnfr.svt.applications.web.documents.stepproperties.StepProperties"/>
+                        </item>
+                        <item guid="d74c3f7b-261b-4b84-ad37-cdb35cdb71fd" action="go" session="t2" estimatedStepExecutionTime="1.39">
+                            <command>
+                                <body>http://10.10.4.16/scenarios/msl?id=$id</body>
+                            </command>
+                            <applicationProperties type="com.fnfr.svt.applications.web.documents.stepproperties.StepProperties"/>
+                        </item>
+                    </nestedSteps>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                    <useFieldsInCommand>false</useFieldsInCommand>
+                </item>
+                <item guid="ab5833df-d4e0-401c-888b-98c8dc1d3c83" action="comment">
+                    <command>
+                        <body>Downlaod malware</body>
+                    </command>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                    <useFieldsInCommand>false</useFieldsInCommand>
+                </item>
+                <item guid="f2fab158-c1c9-4a9e-b8c1-907dffced907" action="GET" session="t1" normalOffset="37.775" estimatedStepExecutionTime="1.903">
+                    <command>
+                        <body>/scenarios?q=&amp;facets=%7B%7D&amp;page=1&amp;per_page=200&amp;subtype=malware&amp;include=results%2Cfacets%2Ccolumns&amp;include_meta=false</body>
+                    </command>
+                    <postProcessing>
+                        <analysisRules>
+                            <item>
+                                <extractorInfo extractorType="query">
+                                    <extractorProperties type="com.fnfr.svt.mapping.execution.extractors.QueryDataExtractorPropertyGroup">
+                                        <query>mapped/Json/total_pages</query>
+                                    </extractorProperties>
+                                </extractorInfo>
+                                <processorInfo ruleType="store">
+                                    <ruleProperties type="com.fnfr.svt.execution.builtin.processors.StoreProcessorPropertyGroup">
+                                        <storageLocation>totalPages</storageLocation>
+                                    </ruleProperties>
+                                </processorInfo>
+                            </item>
+                        </analysisRules>
+                    </postProcessing>
+                    <applicationProperties type="com.fnfr.svt.adapter.automation.tools.common.documents.TransferableDocumentObject" transferableToolId="com.fnfr.itest.applications.webservices.restful" transferableType="com.fnfr.itest.applications.webservices.properties.restful.RESTfulInvokeProperties" action="/scenarios?q=&amp;facets=%7B%7D&amp;page=1&amp;per_page=200&amp;subtype=malware&amp;include=results%2Cfacets%2Ccolumns&amp;include_meta=false" action.inherit="false">
+                        <authentication transferableToolId="com.fnfr.itest.applications.webservices.restful" transferableType="com.fnfr.itest.applications.webservices.properties.AuthenticationProperties" user="shangqing.liu@spirent.com" user.inherit="false" password.masked="true" password="AiRWju4XCF68/xt4CGWUjg==" password.inherit="false"/>
+                    </applicationProperties>
+                </item>
+                <item guid="24d7ff44-0d0a-4c5f-8e7a-9f17d864d606" action="eval">
+                    <command>
+                        <body>set idLists {}</body>
+                    </command>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                    <useFieldsInCommand>false</useFieldsInCommand>
+                </item>
+                <item guid="e85f1a61-e6da-4d4f-9ad6-456a63b93dd2" action="eval">
+                    <command>
+                        <body>array set arr {}</body>
+                    </command>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                    <useFieldsInCommand>false</useFieldsInCommand>
+                </item>
+                <item guid="f2c86c4b-a8b9-497b-8b93-48486e880003" action="for">
+                    <command>
+                        <body>{set i 1} {$i &lt;=$totalPages} {incr i}</body>
+                    </command>
+                    <nestedSteps>
+                        <item guid="53206d0c-ab2a-4437-9743-43c966d37afc" action="GET" session="t1" normalOffset="37.775" estimatedStepExecutionTime="1.903">
+                            <command>
+                                <body>/scenarios?q=&amp;facets=%7B%7D&amp;page=$i&amp;per_page=200&amp;subtype=malware&amp;include=results%2Cfacets%2Ccolumns&amp;include_meta=false</body>
+                            </command>
+                            <postProcessing>
+                                <analysisRules>
+                                    <item>
+                                        <extractorInfo extractorType="query">
+                                            <extractorProperties type="com.fnfr.svt.mapping.execution.extractors.QueryDataExtractorPropertyGroup">
+                                                <query>//x_id</query>
+                                            </extractorProperties>
+                                        </extractorInfo>
+                                        <processorInfo ruleType="store">
+                                            <ruleProperties type="com.fnfr.svt.execution.builtin.processors.StoreProcessorPropertyGroup">
+                                                <storageLocation>idList</storageLocation>
+                                            </ruleProperties>
+                                        </processorInfo>
+                                    </item>
+                                </analysisRules>
+                            </postProcessing>
+                            <applicationProperties type="com.fnfr.svt.adapter.automation.tools.common.documents.TransferableDocumentObject" transferableToolId="com.fnfr.itest.applications.webservices.restful" transferableType="com.fnfr.itest.applications.webservices.properties.restful.RESTfulInvokeProperties" action="/scenarios?q=&amp;facets=%7B%7D&amp;page=$i&amp;per_page=200&amp;subtype=malware&amp;include=results%2Cfacets%2Ccolumns&amp;include_meta=false" action.inherit="false">
+                                <authentication transferableToolId="com.fnfr.itest.applications.webservices.restful" transferableType="com.fnfr.itest.applications.webservices.properties.AuthenticationProperties" user="shangqing.liu@spirent.com" user.inherit="false" password.masked="true" password="AiRWju4XCF68/xt4CGWUjg==" password.inherit="false"/>
+                            </applicationProperties>
+                        </item>
+                        <item guid="079cb6c5-b51a-49de-9bbf-25f96a611f8c" action="foreach">
+                            <command>
+                                <body>id $idList</body>
+                            </command>
+                            <nestedSteps>
+                                <item guid="c39eeac3-713c-4ad5-91a3-3eb107b23eb6" action="eval">
+                                    <command>
+                                        <body>set nid [format &quot;%s.%s&quot; $id [query scenario //item\\[./x_id=&quot;$id&quot;\\]/name]]</body>
+                                    </command>
+                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                    <useFieldsInCommand>false</useFieldsInCommand>
+                                </item>
+                                <item guid="19ac5e54-b1bf-461a-9d4b-2a85865d62b4" action="eval">
+                                    <command>
+                                        <body>set arr($id) $nid</body>
+                                    </command>
+                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                    <useFieldsInCommand>false</useFieldsInCommand>
+                                </item>
+                            </nestedSteps>
+                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                            <useFieldsInCommand>false</useFieldsInCommand>
+                        </item>
+                        <item guid="f11918d6-ee18-4b79-b50b-b1ff4a6abc5f" action="eval">
+                            <command>
+                                <body>set idLists [concat $idLists $idList]</body>
+                            </command>
+                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                            <useFieldsInCommand>false</useFieldsInCommand>
+                        </item>
+                    </nestedSteps>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                    <useFieldsInCommand>false</useFieldsInCommand>
+                </item>
+                <item guid="0c31da73-0be7-49a8-9a9f-fb9d79cd9d31" action="eval">
+                    <command>
+                        <body>llength $idLists</body>
+                    </command>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                    <useFieldsInCommand>false</useFieldsInCommand>
+                </item>
+                <item guid="bba23b75-8db8-4f06-a5d3-931c2970a237" action="foreach">
+                    <command>
+                        <body>id $idLists</body>
+                    </command>
+                    <nestedSteps>
+                        <item guid="0d287d83-bc4a-42a7-815d-a1c0bff381e5" action="setFilePath" session="t2" normalOffset="12.577">
+                            <command>
+                                <body>C:\\\\Documents and Settings\\\\sqliu\\\\My Documents\\\\scenario\\\\malwares\\\\$arr($id).msl</body>
+                            </command>
+                            <applicationProperties type="com.fnfr.svt.applications.web.documents.stepproperties.StepProperties"/>
+                        </item>
+                        <item guid="0e4df1b4-feba-42a1-b832-616b0e64b662" action="go" session="t2" estimatedStepExecutionTime="1.39">
+                            <command>
+                                <body>http://10.10.4.16/scenarios/msl?id=$id</body>
+                            </command>
+                            <applicationProperties type="com.fnfr.svt.applications.web.documents.stepproperties.StepProperties"/>
+                        </item>
+                    </nestedSteps>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                    <useFieldsInCommand>false</useFieldsInCommand>
+                </item>
+                <item guid="fb3f1b76-1adb-483b-9188-9c8df93109a4" action="close" session="t2">
+                    <applicationProperties type="com.fnfr.svt.applications.web.documents.stepproperties.StepProperties"/>
+                </item>
+                <item guid="92bf524c-79fe-469e-8b0b-d9c45a146932" action="close" session="t1" normalOffset="14.787">
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                </item>
+            </steps>
+        </item>
+    </procedures>
+</testCase>

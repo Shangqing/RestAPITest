@@ -1,0 +1,93 @@
+<?xml version="1.0"?>
+<testCase version="4.3.0.71069">
+    <procedures>
+        <item name="main">
+            <steps>
+                <item guid="9eb0090a-b8a4-4f7d-9c1c-be1e71b81e2f" action="open" session="t1">
+                    <command>
+                        <body>project://RestAPITest/session_profiles/Web_studio.ffsp</body>
+                    </command>
+                    <applicationProperties type="com.fnfr.svt.documents.OpenStepPropertyGroup">
+                        <stepProperties type="com.fnfr.svt.applications.web.documents.stepproperties.StepProperties"/>
+                        <sessionProperties type="com.fnfr.svt.applications.web.documents.WebSessionProperties"/>
+                        <sessionClass type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                    </applicationProperties>
+                </item>
+                <item guid="2731980b-d334-4171-b787-6309e8d69b52" action="click" session="t1" target="link=Library" normalOffset="2.874">
+                    <applicationProperties type="com.fnfr.svt.applications.web.documents.stepproperties.ClickStepProperties"/>
+                </item>
+                <item guid="5cf3b2e2-15c1-4416-8c88-ac98ad0271d4" action="sleep" target="&lt;target&gt;">
+                    <command>
+                        <body>2</body>
+                    </command>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                </item>
+                <item guid="cab89960-be1f-4cea-b785-87e2759c1245" action="snapshot" session="t1" normalOffset="114.584" estimatedStepExecutionTime="0.64">
+                    <postProcessing>
+                        <analysisRules>
+                            <item>
+                                <extractorInfo extractorType="query">
+                                    <extractorProperties type="com.fnfr.svt.mapping.execution.extractors.QueryDataExtractorPropertyGroup">
+                                        <query>web//SPAN[@class=&quot;item_count&quot;]</query>
+                                    </extractorProperties>
+                                </extractorInfo>
+                                <processorInfo ruleType="store">
+                                    <ruleProperties type="com.fnfr.svt.execution.builtin.processors.StoreProcessorPropertyGroup">
+                                        <storageLocation>itemCount</storageLocation>
+                                    </ruleProperties>
+                                </processorInfo>
+                            </item>
+                        </analysisRules>
+                    </postProcessing>
+                    <applicationProperties type="com.fnfr.svt.applications.web.documents.stepproperties.StepProperties"/>
+                </item>
+                <item guid="17b6fc2e-fdf6-4abe-9992-4e1c35a3d23c" action="for" target="&lt;target&gt;">
+                    <command>
+                        <body>{set i 1} {$i &lt; 30} {incr i}</body>
+                    </command>
+                    <nestedSteps>
+                        <item guid="0d30e2f5-786c-4a57-bb0c-59fef13fbb73" action="click" session="t1" target="//DIV[@id=&apos;item_list_container&apos;]/DIV/DIV[4]">
+                            <applicationProperties type="com.fnfr.svt.applications.web.documents.stepproperties.ClickStepProperties"/>
+                        </item>
+                        <item guid="8f65c17f-c9fc-4995-8e6d-83b0fed3a466" action="snapshot" session="t1" normalOffset="114.584" estimatedStepExecutionTime="0.64">
+                            <postProcessing>
+                                <analysisRules>
+                                    <item>
+                                        <extractorInfo extractorType="query">
+                                            <extractorProperties type="com.fnfr.svt.mapping.execution.extractors.QueryDataExtractorPropertyGroup">
+                                                <query sub="true">web//@row\\[.=$i\\]/..//A/@data-id</query>
+                                            </extractorProperties>
+                                        </extractorInfo>
+                                        <processorInfo ruleType="store">
+                                            <ruleProperties type="com.fnfr.svt.execution.builtin.processors.StoreProcessorPropertyGroup">
+                                                <storageLocation>scenarioName</storageLocation>
+                                            </ruleProperties>
+                                        </processorInfo>
+                                    </item>
+                                </analysisRules>
+                            </postProcessing>
+                            <applicationProperties type="com.fnfr.svt.applications.web.documents.stepproperties.StepProperties"/>
+                        </item>
+                        <item guid="27430bad-cf60-47a2-a15e-8b6cd58f85cf" action="click" session="t1" target="//@row\\[.=$i\\]/..//A\\[@class=&quot;dropdown_link hover_effect&quot;\\]" target.sub="true" normalOffset="11.373">
+                            <applicationProperties type="com.fnfr.svt.applications.web.documents.stepproperties.ClickStepProperties"/>
+                        </item>
+                        <item guid="0456bfe7-9329-4a54-8ba3-a85ae23a10a4" action="setFilePath" session="t1" normalOffset="6.64">
+                            <command>
+                                <body>C:\\\\Documents and Settings\\\\sqliu\\\\My Documents\\\\scenario\\\\$scenarioName.msl</body>
+                            </command>
+                            <applicationProperties type="com.fnfr.svt.applications.web.documents.stepproperties.StepProperties"/>
+                        </item>
+                        <item guid="037b672d-3480-406d-a3b0-7b07cfb82343" action="click" session="t1" target="link=Download MSL" normalOffset="2.328" estimatedStepExecutionTime="1.359">
+                            <applicationProperties type="com.fnfr.svt.applications.web.documents.stepproperties.ClickStepProperties"/>
+                        </item>
+                    </nestedSteps>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                    <useFieldsInCommand>false</useFieldsInCommand>
+                </item>
+                <item guid="e22783a1-1a8e-4a77-84e6-3bcfe6870ffd" action="close" session="t1" normalOffset="4.452">
+                    <applicationProperties type="com.fnfr.svt.applications.web.documents.stepproperties.StepProperties"/>
+                </item>
+            </steps>
+        </item>
+    </procedures>
+</testCase>

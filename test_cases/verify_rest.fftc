@@ -1,0 +1,270 @@
+<?xml version="1.0"?>
+<testCase version="4.3.0.71069">
+    <execution>
+        <parameters version="4.3.0.71069">
+            <parameters escape="true">
+                <parameters xmlns:pt="http://www.fnfr.com/schemas/parameterTree">
+                    <xloginUserPost>user%5Bemail%5D=tailei.liu%40spirent.com&amp;user%5Bpassword%5D=welcome&amp;user%5Bremember_me%5D=on</xloginUserPost>
+                    <loginUserInfo>cu_email=shangqing.liu%40spirent.com; remember_me=on; email=shangqing.liu%40spirent.com; role=admin</loginUserInfo>
+                    <newSubnetParam>{&quot;name&quot;:&quot;pv_sn1&quot;,&quot;description&quot;:&quot;&quot;,&quot;config&quot;:{&quot;ui|ipaddress|start&quot;:&quot;192.168.43.5&quot;,&quot;router|routes|route&quot;:[],&quot;netMaskBits&quot;:&quot;24&quot;,&quot;ui|ipaddress|count&quot;:&quot;253&quot;,&quot;macMasquerade|enabled&quot;:&quot;off&quot;}}</newSubnetParam>
+                    <updatedSubnetParam>{&quot;name&quot;:&quot;Subnet7&quot;,&quot;description&quot;:&quot;&quot;,&quot;created_by&quot;:&quot;shangqing.liu@spirent.com&quot;,&quot;updated_by&quot;:&quot;shangqing.liu@spirent.com&quot;,&quot;category&quot;:&quot;&quot;,&quot;tags&quot;:[],&quot;content_type&quot;:&quot;Subnet&quot;,&quot;config&quot;:{&quot;macMasquerade|enabled&quot;:&quot;off&quot;,&quot;ui|ipaddress|start&quot;:&quot;192.168.43.9&quot;,&quot;router|routes|route&quot;:[],&quot;netMaskBits&quot;:&quot;24&quot;,&quot;ui|ipaddress|count&quot;:&quot;139&quot;},&quot;updated_at&quot;:&quot;2013-07-29T06:41:50.180Z&quot;,&quot;created_at&quot;:&quot;2013-07-26T10:08:25.562Z&quot;,&quot;_id&quot;:&quot;50b266fdf9b5d57dd6ea637a161f0d6d&quot;,&quot;_rev&quot;:&quot;6-8a3a0263bf4af46cc97d32473712f850&quot;,&quot;type&quot;:&quot;Profile::Subnet&quot;,&quot;id&quot;:&quot;50b266fdf9b5d57dd6ea637a161f0d6d&quot;}</updatedSubnetParam>
+                    <loginUserPost>user%5Bemail%5D=shangqing.liu%40spirent.com&amp;user%5Bpassword%5D=Spirent123&amp;user%5Bremember_me%5D=on</loginUserPost>
+                </parameters>
+            </parameters>
+        </parameters>
+    </execution>
+    <procedures>
+        <item name="main">
+            <steps>
+                <item guid="0afdc48e-df14-4c14-ab3f-6acc9d0584f9" action="open" session="s1">
+                    <command>
+                        <body>project://RestAPITest/session_profiles/Rest_AVNext.ffsp</body>
+                    </command>
+                    <applicationProperties type="com.fnfr.svt.documents.OpenStepPropertyGroup">
+                        <stepProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                        <sessionProperties type="com.fnfr.svt.adapter.automation.tools.common.documents.TransferableDocumentObject" transferableToolId="com.fnfr.itest.applications.webservices.restful" transferableType="com.fnfr.itest.applications.webservices.properties.restful.RESTfulSessionProperties"/>
+                        <sessionClass type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                    </applicationProperties>
+                    <useFieldsInCommand>false</useFieldsInCommand>
+                </item>
+                <item guid="839db5c8-e1c4-4146-a78a-a64f449746b7" action="login" session="s1">
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                    <useFieldsInCommand>false</useFieldsInCommand>
+                </item>
+                <item guid="dfd87124-0cc1-4cbd-8229-c1b175f1876f" action="eval">
+                    <command>
+                        <body>puts [gget sessionStr]</body>
+                    </command>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                    <useFieldsInCommand>false</useFieldsInCommand>
+                </item>
+                <item guid="07d1804e-1d3d-42bf-bc85-59d2a97ecf23" action="eval">
+                    <command>
+                        <body>puts [param loginUserInfo]</body>
+                    </command>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                    <useFieldsInCommand>false</useFieldsInCommand>
+                </item>
+                <item guid="2c6c10d1-d71f-4f49-b4b9-c5a07b537de5" action="GetUsers" session="s1" skip="true">
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                    <useFieldsInCommand>false</useFieldsInCommand>
+                </item>
+                <item guid="b3786565-bd81-4154-b14a-268307b777cd" action="GetUser" session="s1" skip="true">
+                    <command>
+                        <body>-email shangqing.liu@spirent.com</body>
+                    </command>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                    <useFieldsInCommand>false</useFieldsInCommand>
+                </item>
+                <item guid="03ba7e6d-d91e-4069-aa79-d4576478311a" action="GetLicenses" session="s1" skip="true">
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                    <useFieldsInCommand>false</useFieldsInCommand>
+                </item>
+                <item guid="75dda23f-fc17-4a3c-b863-d26b30ac4529" action="GetSystemVersions" session="s1" skip="true">
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                    <useFieldsInCommand>false</useFieldsInCommand>
+                </item>
+                <item guid="cf82790f-f587-4006-a96c-c9ae5bf1962b" action="xGetSystemUpdate" session="s1" skip="true">
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                    <useFieldsInCommand>false</useFieldsInCommand>
+                </item>
+                <item guid="ccb03cdf-5a5c-4898-86a5-2ee369d0d002" action="GetSystemGemStatus" session="s1" skip="true">
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                    <useFieldsInCommand>false</useFieldsInCommand>
+                </item>
+                <item guid="1f024480-fb7a-49ae-8b22-ed2df62f2995" action="xGetSystemAbout" session="s1" skip="true">
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                    <useFieldsInCommand>false</useFieldsInCommand>
+                </item>
+                <item guid="88599e26-8522-475e-a958-cf17a777f289" action="GetAppliances" session="s1" skip="true">
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                    <useFieldsInCommand>false</useFieldsInCommand>
+                </item>
+                <item guid="b54b61ab-0605-4882-8524-ba25cd0b0b95" action="GetAppliancesShortList" session="s1" skip="true">
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                    <useFieldsInCommand>false</useFieldsInCommand>
+                </item>
+                <item guid="3cfa41ef-8fe9-466a-9fc8-f021ec52656b" action="GetAppliancesAllNetworks" session="s1" skip="true">
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                    <useFieldsInCommand>false</useFieldsInCommand>
+                </item>
+                <item guid="ddd2c6e0-f931-4de6-a841-633c4b5b5f0f" action="xGetAppliancesAllNetworksWithQueues" session="s1" skip="true">
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                    <useFieldsInCommand>false</useFieldsInCommand>
+                </item>
+                <item guid="30d86f22-51f7-4512-b136-a9edaacdd461" action="GetAppliancesAllQueues" session="s1" skip="true">
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                    <useFieldsInCommand>false</useFieldsInCommand>
+                </item>
+                <item guid="6197a391-1c22-451f-935e-7794cdac2e67" action="GetSubnets" session="s1" skip="true">
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                    <useFieldsInCommand>false</useFieldsInCommand>
+                </item>
+                <item guid="1704614a-ac3b-4ab9-a26a-619bf75ddec1" action="GetSubnet" session="s1" skip="true">
+                    <command>
+                        <body>-name &quot;Test_subnet2&quot;</body>
+                    </command>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                    <useFieldsInCommand>false</useFieldsInCommand>
+                </item>
+                <item guid="fe9225cb-7954-4f32-9e54-e9e335dc0e7d" action="GetSubnetOptions" session="s1" skip="true">
+                    <command>
+                        <body>-name &quot;Test_subnet2&quot;</body>
+                    </command>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                    <useFieldsInCommand>false</useFieldsInCommand>
+                </item>
+                <item guid="4bf26f2b-b676-4f3e-b290-c85eca0fb3db" action="eval">
+                    <command>
+                        <body>puts [param newSubnetParam]</body>
+                    </command>
+                    <postProcessing>
+                        <analysisRules>
+                            <item>
+                                <extractorInfo extractorType="query">
+                                    <extractorProperties type="com.fnfr.svt.mapping.execution.extractors.QueryDataExtractorPropertyGroup">
+                                        <query>mapped/Json/name</query>
+                                    </extractorProperties>
+                                </extractorInfo>
+                                <processorInfo ruleType="store">
+                                    <ruleProperties type="com.fnfr.svt.execution.builtin.processors.StoreProcessorPropertyGroup">
+                                        <storageLocation>expectSubnetName</storageLocation>
+                                    </ruleProperties>
+                                </processorInfo>
+                            </item>
+                        </analysisRules>
+                    </postProcessing>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                    <useFieldsInCommand>false</useFieldsInCommand>
+                </item>
+                <item guid="c86fefad-e2f2-4ed7-b7a0-93bd078fd598" action="CreateSubnet" session="s1">
+                    <command>
+                        <body>-newSubnetParam [param newSubnetParam]</body>
+                    </command>
+                    <postProcessing>
+                        <analysisRules>
+                            <item>
+                                <extractorInfo extractorType="query">
+                                    <extractorProperties type="com.fnfr.svt.mapping.execution.extractors.QueryDataExtractorPropertyGroup">
+                                        <query>mapped/Json/name</query>
+                                    </extractorProperties>
+                                </extractorInfo>
+                                <processorInfo ruleType="assert">
+                                    <ruleProperties type="com.fnfr.svt.execution.builtin.processors.AssertionPropertyGroup">
+                                        <expression>$value == $expectSubnetName</expression>
+                                        <actionsWhenTrue>
+                                            <item actionId="DeclareExecutionIssue">
+                                                <actionProperties type="com.fnfr.svt.execution.builtin.actions.ExecutionIssuePropertyGroup" severity="OK">
+                                                    <message>{auto_message_true}</message>
+                                                </actionProperties>
+                                            </item>
+                                            <item actionId="PassTestIfNotAlreadyFailed">
+                                                <actionProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                            </item>
+                                        </actionsWhenTrue>
+                                        <actionsWhenFalse>
+                                            <item actionId="DeclareExecutionIssue">
+                                                <actionProperties type="com.fnfr.svt.execution.builtin.actions.ExecutionIssuePropertyGroup">
+                                                    <message>{auto_message_false}</message>
+                                                </actionProperties>
+                                            </item>
+                                            <item actionId="FailTest">
+                                                <actionProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                            </item>
+                                        </actionsWhenFalse>
+                                    </ruleProperties>
+                                </processorInfo>
+                            </item>
+                        </analysisRules>
+                    </postProcessing>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                    <useFieldsInCommand>false</useFieldsInCommand>
+                </item>
+                <item guid="4ed67199-a206-4c50-8b8c-9b9e90c3706e" action="DeleteSubnet" session="s1">
+                    <command>
+                        <body>-name &quot;pv_sn1&quot;</body>
+                    </command>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                    <useFieldsInCommand>false</useFieldsInCommand>
+                </item>
+                <item guid="bc6eae51-4367-4899-aaa9-5c83d1fea9c8" action="eval" skip="true">
+                    <command>
+                        <body>puts [param updatedSubnetParam]</body>
+                    </command>
+                    <postProcessing>
+                        <analysisRules>
+                            <item>
+                                <extractorInfo extractorType="query">
+                                    <extractorProperties type="com.fnfr.svt.mapping.execution.extractors.QueryDataExtractorPropertyGroup">
+                                        <query>mapped/Json/config/ui_ipaddress_start</query>
+                                    </extractorProperties>
+                                </extractorInfo>
+                                <processorInfo ruleType="store">
+                                    <ruleProperties type="com.fnfr.svt.execution.builtin.processors.StoreProcessorPropertyGroup">
+                                        <storageLocation>expectIP</storageLocation>
+                                    </ruleProperties>
+                                </processorInfo>
+                            </item>
+                        </analysisRules>
+                    </postProcessing>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                    <useFieldsInCommand>false</useFieldsInCommand>
+                </item>
+                <item guid="ee62a16b-a6ee-4981-86fa-886848277823" action="xUpdateSubnet" session="s1" skip="true">
+                    <command>
+                        <body>-name &quot;Subnet7&quot; -updatedSubnetParam [param updatedSubnetParam]</body>
+                    </command>
+                    <postProcessing>
+                        <analysisRules>
+                            <item>
+                                <extractorInfo extractorType="query">
+                                    <extractorProperties type="com.fnfr.svt.mapping.execution.extractors.QueryDataExtractorPropertyGroup">
+                                        <query>mapped/Json/config/ui_ipaddress_start</query>
+                                    </extractorProperties>
+                                </extractorInfo>
+                                <processorInfo ruleType="assert">
+                                    <ruleProperties type="com.fnfr.svt.execution.builtin.processors.AssertionPropertyGroup">
+                                        <expression>$value == $expectIP</expression>
+                                        <actionsWhenTrue>
+                                            <item actionId="DeclareExecutionIssue">
+                                                <actionProperties type="com.fnfr.svt.execution.builtin.actions.ExecutionIssuePropertyGroup" severity="OK">
+                                                    <message>{auto_message_true}</message>
+                                                </actionProperties>
+                                            </item>
+                                            <item actionId="PassTestIfNotAlreadyFailed">
+                                                <actionProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                            </item>
+                                        </actionsWhenTrue>
+                                        <actionsWhenFalse>
+                                            <item actionId="DeclareExecutionIssue">
+                                                <actionProperties type="com.fnfr.svt.execution.builtin.actions.ExecutionIssuePropertyGroup">
+                                                    <message>{auto_message_false}</message>
+                                                </actionProperties>
+                                            </item>
+                                            <item actionId="FailTest">
+                                                <actionProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                            </item>
+                                        </actionsWhenFalse>
+                                    </ruleProperties>
+                                </processorInfo>
+                            </item>
+                        </analysisRules>
+                    </postProcessing>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                    <useFieldsInCommand>false</useFieldsInCommand>
+                </item>
+                <item guid="46f924d1-4a05-4d7b-8414-1901f2a6d1f8" action="GetPlayerTestTemplate" session="s1" skip="true">
+                    <command>
+                        <body>-type emix</body>
+                    </command>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                    <useFieldsInCommand>false</useFieldsInCommand>
+                </item>
+                <item guid="b957c36b-1df8-459c-930a-facc0d5e58ff" action="close" session="s1">
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                    <useFieldsInCommand>false</useFieldsInCommand>
+                </item>
+            </steps>
+        </item>
+    </procedures>
+</testCase>
